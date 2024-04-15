@@ -1,0 +1,153 @@
+>bonjour >salut >ciao
+
+OUVRE bonjour sortie std dedans
+OUVRE salut FERME bonjour sortie std dedans
+OUVRE ciao FERME salut sortie std dedans
+On ecrit dans ciao
+
+
+< bonjour < salut < ciao
+
+
+PARSER
+LEXER
+PARAMETER EXPANSION (variables $USER...)
+QUOTE REMOVAL (retire les singles doubles quotes qui servent a rien) "b'onjou'r" -> b'onjou'r
+EXECUTION:
+- HEREDOCS
+- REDIRECTIONS
+- EXECUTION (check si builtin, soit a ta fonction, soit a execve)
+
+
+ENUM {
+	COMMAND;
+	IN_FILE; // <
+	OUT_FILE; // >
+	HEREDOC; // <<
+	APPEND; // >>
+	METACHAR; // | ; || && < << >> >
+}
+
+
+echo lol >bonjour >>salut;
+
+echo COMMAND
+lol COMMAND
+> METACHAR
+bonjour OUT_FILE
+>> METACHAR
+salut APPEND
+; METACHAR
+
+OUVRIR bonjour; (stdout bonjour)
+OUVRIR salut; (stdout salut) FERMER bonjour;
+
+{echo, lol}
+
+
+si on a une CMD :
+apres : metachar ou cmd   avant 
+si on a un metachar 
+
+
+
+ENV VARIABLES $USER
+
+
+[HOME=/home/tpenalba,JEOG=egIOJGEO,NULL]
+t_env {
+	char *key;
+	char *value;
+	t_env *n*ext
+}
+gerer la crea de fichiers dans l ordre alphabetiK
+env si fichier ou var pas de valeurs dans export 
+des qu on a une valeur dans env 
+QUOTE REMOVAL ""a'' -> a
+HEREDOC (fichier tmp /tmp):
+	Creer un fichier /tmp/mini_tmp
+	Lire l'input fork >>tmp
+REDIRECTIONS
+EXECUTION : builtins OU execve
+CLEANUP
+
+HEREDOC :
+Maman et son enfant.
+
+Maman cree un enfant avec un fork().
+Maman avoir un signal -> SIGINT, il le renvoit a l'enfant
+Maman attend que enfant ait fini de lire
+
+Enfant lire l'entree standard avec readline
+Enfant, pour chaque ligne, ecrit dans un fichier temporaire dans /tmp
+Enfant arrete quand message = delimiteur
+
+cat z > v echo v
+COMMAND cat
+COMMAND z
+META >
+OUT v
+COMMAND echo
+COMMAND v
+META |
+COMMAND echo
+COMMAND bb
+
+[ /bin/cat, z, echo, v, NULL] -> execve
+[ echo, bb ]
+
+
+
+
+echo lol bonjour >wa | cat
+
+CHAR**	[echo, lol, bonjour, NULL]
+FD_IN	-1
+FD_OUT	5
+
+open("a", ecriture) -> INT fd
+
+On execute dans l'enfant :
+STDOUT -> FD_OUT
+Execute CHAR**
+
+Si PIPE et FD_OUT == -1, alors on cree un fd temporaire ou stocker le contenu de notre commande
+
+echo | cat
+FD_OUT = 5
+
+echo >lol | cat
+FD_OUT = open("lol")
+
+echo | cat
+cat </dev/null
+
+
+
+
+"bonjour$USER lol"
+        ^   ^
+str(orig, int index start, int index end, char *to_repl)
+str("bonjour$USER lol", 7, 12, "tpenalba")
+"bonjourtpenalba lol"
+
+"bonjour$USER lol"
+bonjour$USER lol
+'bonjour$USER lol'
+bonjour"$USER"cc
+$ soit jusque premier espace, ou alors jusqua la fin
+t_env, rechercher la variable
+remplacer par value
+
+bonjour"$USERcc"
+bonjour"tpenalba"cc
+bonjourtpenalbacc
+
+execve(char *commande, char **commande+arg, char **env)
+char **rechar_etoilise_etoilise_env(t_env)
+
+V PARSER
+V LEXER
+PARAMETER EXPANSION
+V QUOTE REMOVAL
+REDIRECTION (+ heredoc) + EXEC + builtins
