@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/15 15:15:04 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:26:39 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	set_signal_actions(void)
 	sigaction(SIGINT, &act, NULL);
 }
 
-void	ft_prompt(t_mini *mini, t_parsing *parsing)
+void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 {
-
+	
 	while (1)
 	{
 		signal(SIGINT, handle_signals);
@@ -46,9 +46,10 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing)
 			printf("exit\n");
 			exit(EXIT_FAILURE);
 		}
+		mini->charenv = env;
 		lexluthor(mini, parsing);
 		parse_cmds(mini->lexer);
-		//getenv
+		get_env(mini->env, mini);
 		//del delete_quotes
 		//exec;
 		del_first_lex(mini, parsing);

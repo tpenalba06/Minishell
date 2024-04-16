@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/15 15:28:12 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:37:55 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,12 @@ typedef struct s_parsing
 	int		maillon;
 }	t_parsing;
 
-typedef struct s_env 
+typedef struct s_env t_env;
+typedef struct s_env
 {
 	char *name;
 	char *value;
+	char *content;
 	t_env *next;
 }t_env;
 
@@ -83,15 +85,17 @@ typedef struct s_lexer
 
 typedef struct s_mini
 {
+	char 		**charenv;
 	t_parsing	*parsing;
 	t_lexer		*lexer;
+	t_env		*env;
 }	t_mini;
 
 //inuit
 void	init_data(t_parsing *data);
 
 //lis bien le prompteur morray
-void	ft_prompt(t_mini *mini, t_parsing *parsing);
+void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env);
 
 //lexluthor
 void	lexluthor(t_mini *mini, t_parsing *parsing);
@@ -120,10 +124,12 @@ char	what_token(char c);
 
 //parsseur
 void    parse_cmds(t_lexer *lexer);
+void 	get_env(t_env *env, t_mini *mini);
 
 //utilitaires (type Mercedes vito 2015)
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	norm(void);
+char 	srch_index_c(char *str, char c);
 
 #endif
