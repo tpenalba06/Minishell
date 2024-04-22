@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/16 13:37:55 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:37:34 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef enum e_cmds
 	OUT_FILE,
 	HEREDOC,
 	APPEND,
-	METACHAR
+	METACHAR,
 	
 } t_cmds;
 
@@ -80,12 +80,14 @@ typedef struct s_lexer
 	t_token			token;
 	t_cmds			cmds;
 	t_lexer			*next;
-	t_lexer			*prev;
+	//t_lexer			*prev;
 }	t_lexer;
 
 typedef struct s_mini
 {
 	char 		**charenv;
+	int			fdin;
+	int			fdout;
 	t_parsing	*parsing;
 	t_lexer		*lexer;
 	t_env		*env;
@@ -108,6 +110,7 @@ char	remove_excess_quote(char *str);
 int		there_is_quotes(t_parsing	*data);
 int		check_quote(char *s, char c);
 char	**split_line(char *str, t_parsing parsing);
+void	is_in(char *in, char c);
 
 //la liste de courses
 void	fill_lst(t_mini *mini, t_parsing *parsing);
@@ -125,11 +128,24 @@ char	what_token(char c);
 //parsseur
 void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
+void	print_env(t_env *env, t_lexer *lexer);
+void 	check_builtins(t_env *env, t_lexer *lexer);
+
+//par ici la money
+char *change_env(char *name, t_mini *mini);
 
 //utilitaires (type Mercedes vito 2015)
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	norm(void);
 char 	srch_index_c(char *str, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(char *src);
+void 	ft_putstr(char *str);
+int	ft_strcmp(const char *s1, const char *s2);
+void	ft_putstr_fd(char *str, int fd);
+
+//bulle tine
+int is_echo(t_parsing *parsing);
 
 #endif

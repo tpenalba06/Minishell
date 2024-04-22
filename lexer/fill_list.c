@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/13 17:07:26 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:38:28 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void fill_lst (t_mini *mini, t_parsing *parsing)
 	i = 0;
 	while (parsing->tab[i])
 	{
-		printf("tab %s\n", parsing->tab[i]);
+		parsing->tab[i] = change_env(parsing->tab[i], mini);
+		remove_excess_quote(parsing->tab[i]);
 		lstadd_back(mini, lstnew(parsing->tab[i]));
 		lstlast(mini->lexer)->token = indefini;
 		lstlast(mini->lexer)->cmds = undefined;

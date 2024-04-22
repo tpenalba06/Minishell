@@ -98,7 +98,6 @@ COMMAND bb
 
 
 
-
 echo lol bonjour >wa | cat
 
 CHAR**	[echo, lol, bonjour, NULL]
@@ -122,6 +121,15 @@ FD_OUT = open("lol")
 echo | cat
 cat </dev/null
 
+>bonjour >salut >ciao
+
+OUVRE bonjour sortie std dedans
+OUVRE salut FERME bonjour sortie std dedans
+OUVRE ciao FERME salut sortie std dedans
+On ecrit dans ciao
+
+
+< bonjour < salut < ciao
 
 
 
@@ -146,8 +154,16 @@ bonjourtpenalbacc
 execve(char *commande, char **commande+arg, char **env)
 char **rechar_etoilise_etoilise_env(t_env)
 
+dup2 remplacer stdin stdout par un fd 
+
+
 V PARSER
 V LEXER
-PARAMETER EXPANSION
+  PARAMETER EXPANSION
+V get env
+V $
+  export / unset
+  builtins
 V QUOTE REMOVAL
-REDIRECTION (+ heredoc) + EXEC + builtins
+REDIRECTION (+ heredoc)
+DYDY EXEC 

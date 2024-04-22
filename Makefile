@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/04/16 13:35:10 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/04/22 18:29:23 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,12 @@ SRC = 	main.c \
 		lexer/fill_list.c \
 		lexer/tokenize.c \
 		parser/parse_cmds.c \
+		parser/builtins.c \
 		parser/get_env.c \
-		parser/checkdoll.c
-
+		parser/checkdollz.c \
+		builtins/echo.c \
+		utils/utils.c
+		
 		
 
 

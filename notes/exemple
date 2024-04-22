@@ -1,0 +1,28 @@
+ls < bonjour -la | cat > mdr
+
+
+---------0
+
+tab : [ls] [-la] [NULL]
+[bonjour][1]
+prev->NULL
+next->1
+
+---------1
+
+tab : [cat][NULL]
+[mdr][2]
+prev->0
+next->NULL
+
+
+
+int[2];
+pipe(int)
+
+process0 :
+dup2(bonjour, STDIN);
+dup2(pipe[1], STDOUT);
+execve(tab);
+
+process1 :

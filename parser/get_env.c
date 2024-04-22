@@ -12,6 +12,7 @@ char srch_index_c(char *str, char c)
     }
     return(0);
 }
+
 char **split_env(char *str, char c)
 {
     int i;
@@ -80,8 +81,12 @@ void get_env(t_env *env, t_mini *mini)
     {
         str = split_env(mini->charenv[i], '=');
         tmp = envnew(str[0], str[1]);
-        printf("l env name : [%s] = l env value [%s]\n\n", tmp->name, tmp->value);
-        tmp = tmp->next;
+        env_add_back(mini, tmp);
         i++;
+    }
+    tmp = mini->env;
+    while (tmp)
+    {
+           tmp = tmp->next;
     }
 }

@@ -1,9 +1,1 @@
->bonjour >salut >ciao
 
-OUVRE bonjour sortie std dedans
-OUVRE salut FERME bonjour sortie std dedans
-OUVRE ciao FERME salut sortie std dedans
-On ecrit dans ciao
-
-
-< bonjour < salut < ciao
