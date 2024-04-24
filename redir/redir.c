@@ -6,14 +6,23 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:06:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 18:10:07 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:43:07 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    redir(pid_t pid)
+
+
+////////////////////////////////////////////////////
+///////////////////POUR DYDY //////////////////////
+//////////////////////////////////////////////////
+
+
+void    redir(t_lexer *lexer, char *linepid_t pid)
 {
+    char *delim;
+    
     pid_t   pid = fork();
     if (pid == -1) {
         printf("ERREUR");
@@ -38,4 +47,6 @@ void    redir(pid_t pid)
         signal(SIGINT, sigint_heredoc);
         int status;
         waitpid(pid, &status, 0);
+
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:21:32 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 18:22:14 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:02:28 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	print_env(t_env *env, t_lexer *lexer)
 			tmp = tmp->next;
 		}
 	}
-
 }

@@ -57,7 +57,7 @@ void	env_add_back(t_mini *mini, t_env *new)
 	else
 		envlast(mini->env)->next = new;
 }
-t_env	*envnew(void *name, void *value)
+t_env	*envnew(char *name, char *value)
 {
 	t_env	*lst;
 

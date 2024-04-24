@@ -159,11 +159,58 @@ dup2 remplacer stdin stdout par un fd
 
 V PARSER
 V LEXER
-  PARAMETER EXPANSION
+V PARAMETER EXPANSION
 V get env
 V $
-  export / unset
-  builtins
+BUILTINS
+V echo
+  export
+  unset 
+
 V QUOTE REMOVAL
 REDIRECTION (+ heredoc)
 DYDY EXEC 
+
+chainee qui s appelle cmds
+arg ce qui est entre les pipes
+chainee redir dedans y a une {redirection + le mot d apres}
+> et le mot 
+
+
+echo 		c >         dossier      | 				cat 		coucou 			< 				poire
+commande 1	commande 1  commande 1    token 6 pipe    commande 1  commande 1    token less 1		commande 1
+			arg      0   outfile 2    metachar 6					arg 1			metachar 6 		infile 3
+builtin 1
+
+LISTE CHAINEE CMD 
+					  lst redir   1 ->next->2
+[char **arg (echo, c) redirection(>, dossier)] -> [char **arg(cat, coucou), redirection(<, poire)]
+								  char > 
+								  token 1
+								  str = dossier	
+
+
+LISTE CHAINEE REDIRECTION
+VAL
+> ->bjr -> < -> cc -> > -> ilyes
+2    0     3     0    2     0 
+
+
+
+
+
+EXPORT : exemple avec "export a=abc"
+
+- CHECK si "NAME" peut-etre egal a "a".
+---> SI NON --> lst = lst->next;
+---> Si NAME == a -> REMPLACER VALUE
+
+---> Si a n'existe pas alors, lstaddback(new element) NAME = a VALUE = abc
+
+Tous les noms de variable d'env doivent commencer par une lettre/underscore, jamais de chiffre.
+EXEMPLE : export 123=321
+	-->  bash: export: `123=321': not a valid identifier
+
+
+
+

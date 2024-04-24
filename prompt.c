@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 18:23:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:56:56 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	set_signal_actions(void)
 
 void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 {
-	
+	mini->charenv = env;
+	get_env(mini->env, mini);
 	while (1)
 	{
 		signal(SIGINT, handle_signals);
@@ -46,12 +47,9 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 			printf("exit\n");
 			exit(EXIT_FAILURE);
 		}
-		mini->charenv = env;
-		get_env(mini->env, mini);
 		lexluthor(mini, parsing);
 		parse_cmds(mini->lexer);
-		check_builtins(mini->env, mini->lexer);
-		//delete_quotes;
+		check_builtins(mini->env, mini->parsing, mini->lexer, mini);
 		//exec;
 		//if(mini->lexer->content )
 		del_first_lex(mini, parsing);

@@ -56,7 +56,23 @@ char *name_to_value(char *name, t_env *env)
     return (value);
 }
 
+int    one_dollar(char *str)
+{
+    int i;
+    int count;
 
+    count = 0;
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] != '\'' && str[i] != '\"' && str[i] != '$')
+            count++;
+        i++;
+    }
+    if(count > 0)
+        return(0);
+    return(1);
+}
 char    *change_env(char *str, t_mini *mini)
 {
     char    *name;
@@ -65,9 +81,9 @@ char    *change_env(char *str, t_mini *mini)
     int        i;
     char    in;
 
-    i = 0;
-    in = 0;
-    printf("str: -%s-\n", str);
+    (norm(),i = 0, in = 0);
+    if(one_dollar(str) == 1)
+        return(str);
     is_in(&in, str[i]);
     while(str[i])
     {
@@ -87,6 +103,5 @@ char    *change_env(char *str, t_mini *mini)
         is_in(&in, str[i]);
         i++;
     }
-    printf("newstr: -%s-\n", str);
     return(str);
 }

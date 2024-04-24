@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 18:37:34 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:46:46 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,19 @@ typedef enum e_token
 	more_more,
 	pipee
 }	t_token;
-
+/*
+typedef enum e_built
+{
+	undefined,
+	b_echo,
+	b_cd,
+	b_pwd,
+	b_export,
+	b_unset,
+	b_env,
+	b_exit,
+}	t_built;
+*/
 typedef enum e_cmds
 {
 	undefined,
@@ -61,7 +73,6 @@ typedef struct s_parsing
 	char	**tab;
 	int 	index;
 	int		i;
-	int		maillon;
 }	t_parsing;
 
 typedef struct s_env t_env;
@@ -82,7 +93,15 @@ typedef struct s_lexer
 	t_lexer			*next;
 	//t_lexer			*prev;
 }	t_lexer;
-
+/*
+typedef struct s_cmd 
+{
+	char 	*content;
+	char 	**arg;
+	t_token	token;
+	t_cmd	*next;
+}	t_cmd;
+*/
 typedef struct s_mini
 {
 	char 		**charenv;
@@ -92,6 +111,7 @@ typedef struct s_mini
 	t_lexer		*lexer;
 	t_env		*env;
 }	t_mini;
+
 
 //inuit
 void	init_data(t_parsing *data);
@@ -117,6 +137,7 @@ void	fill_lst(t_mini *mini, t_parsing *parsing);
 void 	printList (t_mini *mini);
 t_lexer	*lstnew(void *content);
 void 	del_first_lex(t_mini *mini, t_parsing *parsing);
+void	lstadd_back(t_mini *mini, t_lexer *new);
 
 //oh les tiktokers
 void	tokenize(t_mini *mini);
@@ -128,8 +149,10 @@ char	what_token(char c);
 //parsseur
 void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
-void	print_env(t_env *env, t_lexer *lexer);
-void 	check_builtins(t_env *env, t_lexer *lexer);
+t_env	*envlast(t_env *lst);
+void	env_add_back(t_mini *mini, t_env *new);
+t_env	*envnew(char *name, char *value);
+int 	is_env_char(char c);
 
 //par ici la money
 char *change_env(char *name, t_mini *mini);
@@ -144,8 +167,14 @@ char	*ft_strdup(char *src);
 void 	ft_putstr(char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *str, int fd);
+size_t	ft_strlen(const char *str);
+int		there_is_equal(char *str);
 
 //bulle tine
-int is_echo(t_parsing *parsing);
+int 	is_echo(t_parsing *parsing);
+void 	export(t_env *env, t_lexer *lexer, t_mini *mini);
+void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
+void	print_env(t_env *env, t_lexer *lexer);
+t_env   *unset(t_env *env, t_lexer *lexer);
 
 #endif

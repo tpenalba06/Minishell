@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:49:02 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/15 15:11:59 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:47:08 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void    parse_cmds(t_lexer *lexer)
     {
         //printf("cmds avant = %d\n } \n", tmp->cmds);
         parse_uber_command(tmp);
-        printf("{ \n string = %s \n", tmp->content);
-        printf("token = %d\n", tmp->token);
-        printf("cmds = %d\n } \n\n\n\n\n", tmp->cmds);
+       // printf("{ \n string = %s \n", tmp->content);
+       // printf("token = %d\n", tmp->token);
+       // printf("cmds = %d\n } \n\n\n\n\n", tmp->cmds);
         tmp = tmp->next;
     }
 }
+
 

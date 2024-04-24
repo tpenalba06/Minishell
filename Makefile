@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/04/22 18:29:23 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/04/24 19:45:18 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC = 	main.c \
 		parser/get_env.c \
 		parser/checkdollz.c \
 		builtins/echo.c \
+		builtins/export.c \
+		builtins/unset.c \
 		utils/utils.c
 		
 		

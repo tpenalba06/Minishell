@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 18:28:13 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:09:02 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	remove_excess_quote(char *str)
 void	lexluthor(t_mini *mini, t_parsing *parsing)
 {
 	parsing->tab = split_line(parsing->input, *parsing);
-	is_echo(parsing);
 	fill_lst(mini, parsing);
 	tokenize(mini);
 	printList(mini);
