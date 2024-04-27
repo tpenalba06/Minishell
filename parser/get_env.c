@@ -90,3 +90,39 @@ void get_env(t_env *env, t_mini *mini)
            tmp = tmp->next;
     }
 }
+
+static void	swap_content(t_env *env, t_env *next)
+{
+	char	*yo_name;
+	char	*yo_value;
+	//bool	yo_is_exp;
+	yo_name = env->name;
+	yo_value = env->value;
+	//yo_is_exp = env->is_exported;
+	env->name = next->name;
+	env->value = next->value;
+	//env->is_exported = next->is_exported;
+	next->name = yo_name;
+	next->value = yo_value;
+	//next->is_exported = yo_is_exp;
+}
+void	sort_env(t_env *head)
+{
+	int		swapped;
+	t_env	*ptr;
+	swapped = 1;
+	while (swapped == 1)
+	{
+		swapped = 0;
+		ptr = head;
+		while (ptr && ptr->next)
+		{
+			if (ft_strcmp(ptr->name, ptr->next->name) > 0)
+			{
+				swap_content(ptr, ptr->next);
+				swapped = 1;
+			}
+			ptr = ptr->next;
+		}
+	}
+}

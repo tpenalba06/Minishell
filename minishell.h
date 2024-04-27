@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/24 21:46:46 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:58:44 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef enum e_cmds
 	HEREDOC,
 	APPEND,
 	METACHAR,
+	BUILTIN
 	
 } t_cmds;
 
@@ -91,7 +92,7 @@ typedef struct s_lexer
 	t_token			token;
 	t_cmds			cmds;
 	t_lexer			*next;
-	//t_lexer			*prev;
+	t_lexer			*prev;
 }	t_lexer;
 /*
 typedef struct s_cmd 
@@ -149,13 +150,14 @@ char	what_token(char c);
 //parsseur
 void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
+
+//par ici la money
+char *change_env(char *name, t_mini *mini);
 t_env	*envlast(t_env *lst);
 void	env_add_back(t_mini *mini, t_env *new);
 t_env	*envnew(char *name, char *value);
 int 	is_env_char(char c);
-
-//par ici la money
-char *change_env(char *name, t_mini *mini);
+void	sort_env(t_env *head);
 
 //utilitaires (type Mercedes vito 2015)
 void	*ft_calloc(size_t count, size_t size);

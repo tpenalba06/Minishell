@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/22 17:38:28 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:54:05 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_lexer	*lstnew(void *content)
 		return (NULL);
 	lst -> content = content;
 	lst -> next = NULL;
+	lst -> prev = NULL;
 	return (lst);
 }
 
@@ -43,10 +44,16 @@ void	lstadd_front(t_lexer *lst, t_lexer *new)
 
 void	lstadd_back(t_mini *mini, t_lexer *new)
 {
+	t_lexer	*temp;
+
 	if (!mini->lexer)
 		mini->lexer = new;
 	else
-		lstlast(mini->lexer)->next = new;
+	{
+		temp = lstlast(mini->lexer);
+		temp->next = new;
+		new->prev = temp;
+	}
 }
 
 void	tokenize(t_mini *mini)

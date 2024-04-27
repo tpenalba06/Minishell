@@ -73,6 +73,7 @@ int    one_dollar(char *str)
         return(0);
     return(1);
 }
+
 char    *change_env(char *str, t_mini *mini)
 {
     char    *name;

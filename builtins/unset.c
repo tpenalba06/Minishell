@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:30 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/24 22:00:20 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:12:22 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_env    *unset(t_env *env, t_lexer *lexer)
     envtmp = env;
     lextmp = lexer->next;
     prev = env;
-
     while(lextmp)
     {
 		name = getname(lextmp->content);
@@ -61,7 +60,6 @@ t_env    *unset(t_env *env, t_lexer *lexer)
 				free(envtmp);
 				break ;
 			}
-
             if(ft_strcmp(name, envtmp->name) == 0)
             {
 			    if(envtmp->next == NULL)
