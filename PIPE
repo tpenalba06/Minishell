@@ -1,0 +1,16 @@
+SI PAS DE PIPE:
+SI BUILTIN - processus parent
+SINON - processus enfant + execve
+
+SI PIPE:
+SI BUILTIN - processus enfant + fonction
+SINON - processus enfant + execve
+
+fork() -> cree un enfant
+dup2() pipe, fichier de sortie, stdout
+execve(char *path de lexectuable, char **cmd, char **env)
+cmd = {/bin/cat, bonjour, salut, NULL}
+si reussit, il exit (0)
+sinon, il continue donc faut exit(1)
+
+parent, cree tous les enfants, puis il va tous les attendre

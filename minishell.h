@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 17:58:44 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:08:42 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include <sys/uio.h>
 # include <stdarg.h>
 # include <string.h>
+# include <dirent.h>
+# include <termios.h>
 
 typedef enum e_token
 {
@@ -55,6 +57,7 @@ typedef enum e_built
 	b_exit,
 }	t_built;
 */
+
 typedef enum e_cmds
 {
 	undefined,
@@ -64,7 +67,8 @@ typedef enum e_cmds
 	HEREDOC,
 	APPEND,
 	METACHAR,
-	BUILTIN
+	BUILTIN,
+	HERE_DOC_DELIM
 	
 } t_cmds;
 
@@ -85,6 +89,14 @@ typedef struct s_env
 	t_env *next;
 }t_env;
 
+typedef struct s_tool
+{
+	t_env	*env;
+	char	**c_env;
+	long	rt_val;
+	char	*cwd;
+}t_tool;
+
 typedef struct s_lexer	t_lexer;
 typedef struct s_lexer
 {
@@ -94,6 +106,14 @@ typedef struct s_lexer
 	t_lexer			*next;
 	t_lexer			*prev;
 }	t_lexer;
+
+typedef struct s_command
+{
+	char				*content;
+	enum e_cmds			purpose;
+	struct s_command	*next;
+}t_command;
+
 /*
 typedef struct s_cmd 
 {
@@ -124,6 +144,7 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env);
 void	lexluthor(t_mini *mini, t_parsing *parsing);
 void	print_tab(char **tab);
 void 	terror(char *str);
+void 	check_syntax(t_lexer *lexer);
 
 //split et "qu'o'tes" "a la con"
 char	*delete_quotes_value(char *str);
@@ -167,10 +188,14 @@ char 	srch_index_c(char *str, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(char *src);
 void 	ft_putstr(char *str);
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *str, int fd);
 size_t	ft_strlen(const char *str);
 int		there_is_equal(char *str);
+void 	redisplay_error(void);
+size_t	ft_strlcat(char *s1, const char *s2, size_t n);
+int		ft_strlcpy(char *dst, const char *src, unsigned int size);
+size_t	ft_strlen(const char *str);
 
 //bulle tine
 int 	is_echo(t_parsing *parsing);
@@ -178,5 +203,10 @@ void 	export(t_env *env, t_lexer *lexer, t_mini *mini);
 void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
 void	print_env(t_env *env, t_lexer *lexer);
 t_env   *unset(t_env *env, t_lexer *lexer);
+
+//circulez svp
+int			get_heredoc_file(int hd, int mode);
+void		unlink_heredocs(t_command *cmd);
+int			here_doc(t_command *cmd, t_tool *tool);
 
 #endif

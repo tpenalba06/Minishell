@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/04/24 19:45:18 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/03 19:07:34 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,13 @@ SRC = 	main.c \
 		builtins/echo.c \
 		builtins/export.c \
 		builtins/unset.c \
-		utils/utils.c
+		lexer/remove_quotes.c \
+		lexer/lexer_utils.c \
+		utils/utils.c \
+		utils/utils2.c \
+		parser/env_utils.c
+		
+		#heredoc/heredoc.c \
 		
 		
 
@@ -34,7 +40,7 @@ SRC = 	main.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=leak
 LDFLAGS = -lreadline
 
 .c.o:

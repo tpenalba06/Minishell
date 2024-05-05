@@ -6,63 +6,44 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/23 13:09:02 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:14:36 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	move_back(char *str)
-{
-	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
+void terror(char *str)
+{
+	printf("syntax error near unexpected token `%s' \n", str);
+	rl_on_new_line();
 }
 
-void	is_in(char *in, char c)
+void check_syntax(t_lexer *lexer)
 {
-	if (c == '"' || c == '\'')
+	t_lexer *tmp;
+
+	tmp = lexer;
+	if(tmp == NULL)
+		return;
+	if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
+		return(terror(tmp->content));
+	if(tmp->token == pipee)
+		return(terror(tmp->content));
+	if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
+		return(terror(tmp->content));
+	while (tmp)
 	{
-		if (*in == 0)
-			*in = c;
-		else if (*in == c)
-			*in = 0;
-	}
-}
-
-// fais défiler la string pour supprimer les quotes qui doivent être
-// retiré pour récupérer le mot final (en prenant en compte env)
-
-char	remove_excess_quote(char *str)
-{
-	int		i;
-	char	in;
-
-	i = 0;
-	in = 0;
-	while (str && str[i])
-	{
-		is_in(&in, str[i]);
-		if (!in)
-			i++;
-		else if (str[i])
+		if(tmp->next)
 		{
-			move_back(str + i);
-			while (in && str[i])
-			{
-				is_in(&in, str[i]);
-				if (in)
-					i++;
-			}
-			move_back(str + i);
+			if((tmp->token != 0 && tmp->token != 5 && tmp->next->token != 0) ) 
+				return(terror(tmp->content));
 		}
+		if(tmp->token != 0 && tmp->next == NULL)
+			return(terror(tmp->content));
+		tmp = tmp->next;
 	}
-	return (in);
+	tmp = lexer;
 }
 
 void	lexluthor(t_mini *mini, t_parsing *parsing)
@@ -70,15 +51,8 @@ void	lexluthor(t_mini *mini, t_parsing *parsing)
 	parsing->tab = split_line(parsing->input, *parsing);
 	fill_lst(mini, parsing);
 	tokenize(mini);
-	printList(mini);
-
+	check_syntax(mini->lexer);
 }
-void terror(char *str)
-{
-	printf("syntax error near unexpected token `%s' \n", str);
-	rl_on_new_line();
-}
-
 
 //gerer les pipes mm qd ils sont colles avancer 1 char par 1 char
 //les tokens sont separateurs aussi

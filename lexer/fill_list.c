@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 18:54:05 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:09:17 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	tokenize(t_mini *mini)
 	{
 		if (!mini->lexer->content)
 			mini->lexer = mini->lexer->next;
-		else if (mini->lexer->content[0] == '>' && mini->lexer->content[1] == '>')
+		else if (mini->lexer->content[0] == '>' && mini->lexer->content[1] == '>' && mini->lexer->content[3] == '\0')
 			mini->lexer->token = more_more;
 		else if (mini->lexer->content[0] == '<' && mini->lexer->content[1] == '<')
 			mini->lexer->token = less_less;
@@ -79,6 +79,7 @@ void	tokenize(t_mini *mini)
 	}
 	mini->lexer = tmp;
 }
+
 void printList (t_mini *mini)
 {
 	t_lexer *tmp;
@@ -95,11 +96,10 @@ void printList (t_mini *mini)
 				terror(tmp->content);
 			}
 		}
-		//remove_excess_quote(mini->lexer->content);	
-	//	printf("---------------------\n");
-	//	printf("element : %s\n\n", tmp->content);
-		//printf("token is : %d\n\n", tmp->token);
-	//	printf("---------------------\n");
+		printf("---------------------\n");
+		printf("element : %s\n", tmp->content);
+		printf("token is : %d\n", tmp->token);
+		printf("---------------------\n");
 		tmp = tmp->next;
 	}
 }
@@ -136,5 +136,6 @@ void fill_lst (t_mini *mini, t_parsing *parsing)
 		lstlast(mini->lexer)->next = NULL;
 		i++;
 	}
+	
 }
 

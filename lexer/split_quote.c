@@ -6,57 +6,13 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:14:24 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/19 19:53:42 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:22:53 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	what_token(char c)
-{
-	if (c == '|')
-		return(c);
-	if (c == '<')
-		return(c);
-	if (c == '>')
-		return(c);
-	return(0);
-}
-void	print_tab(char **tab)
-{
-	int	i;
 
-	i = 0;
-	while (tab[i])
-	{
-		printf("element numero %d du tab %s\n", i, tab[i]);
-		i++;
-	}
-	return ;
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*str;
-
-	str = malloc(sizeof(*str) * (count * size));
-	if (str == NULL)
-		return (NULL);
-	ft_bzero(str, count * size);
-	return (str);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((unsigned char *)s)[i] = 0;
-		i++;
-	}
-}
 
 char	update_quote(char quote, char cur)
 {
@@ -127,8 +83,7 @@ static char	*cut_word(char *line)
 	return (word);
 }
 
-void norm(void)
-{}
+
 char	**split_line(char *str, t_parsing parsing)
 {
 	char	**list;

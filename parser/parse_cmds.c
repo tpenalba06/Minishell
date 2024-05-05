@@ -6,12 +6,19 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:49:02 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 19:09:16 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:32:22 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void redisplay_error(void)
+{
+			printf("syntax error near token \n");
+			rl_on_new_line();
+			//rl_replace_line("", 0);
+			//rl_redisplay ();
+}
 
 void parse_uber_command(t_lexer *lexer)
 {
