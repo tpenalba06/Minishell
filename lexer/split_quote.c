@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:14:24 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 17:22:53 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/05 22:03:17 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static int	count(char *str)
 	int		count;
 	char	quote;
 
-	i = 0;
-	count = 0;
-	quote = 0;
+	(norm(),i = 0, quote = 0, count = 0);
 	while (str[i])
 	{
 		if (((str[i] != ' ' &&(what_token(str[i]) == 0)) || quote) && str[i])
@@ -108,9 +106,8 @@ char	**split_line(char *str, t_parsing parsing)
 		while (*str == ' ' && !quote && *str)
 			str += iterate(&quote, *str);
 	}
-	list[parsing.index] = NULL;
 	if(update_quote(quote, *str) != 0)
-		exit(0);
+		rl_on_new_line();
 	return (list);
 }
 

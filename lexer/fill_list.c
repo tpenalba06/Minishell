@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 19:09:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:39:09 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ void printList (t_mini *mini)
 
 	tmp = mini->lexer;
 	if (tmp && tmp->token == 5)
-		terror(tmp->content);
+		terror(tmp->content, mini->lexer);
 	while (tmp)
 	{
 		if(tmp->next)
 		{
 			if((tmp->token != 0 && tmp->token != 5 && tmp->next->token != 0) ) {
 				printf("lol\n");
-				terror(tmp->content);
+				terror(tmp->content, mini->lexer);
 			}
 		}
 		printf("---------------------\n");
@@ -136,6 +136,4 @@ void fill_lst (t_mini *mini, t_parsing *parsing)
 		lstlast(mini->lexer)->next = NULL;
 		i++;
 	}
-	
 }
-

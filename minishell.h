@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 19:08:42 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:57:12 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_tool
 typedef struct s_lexer	t_lexer;
 typedef struct s_lexer
 {
+	int				error;
 	char			*content;
 	t_token			token;
 	t_cmds			cmds;
@@ -143,7 +144,7 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env);
 //lexluthor
 void	lexluthor(t_mini *mini, t_parsing *parsing);
 void	print_tab(char **tab);
-void 	terror(char *str);
+void 	terror(char *str, t_lexer *lexer);
 void 	check_syntax(t_lexer *lexer);
 
 //split et "qu'o'tes" "a la con"
@@ -173,7 +174,7 @@ void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
 
 //par ici la money
-char *change_env(char *name, t_mini *mini);
+char 	*change_env(char *name, t_mini *mini);
 t_env	*envlast(t_env *lst);
 void	env_add_back(t_mini *mini, t_env *new);
 t_env	*envnew(char *name, char *value);
