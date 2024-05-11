@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 16:49:43 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:41:14 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,38 +85,34 @@ char  *createname(char *str)
 	return(newname);
 }
 
-void    export_new_var(t_mini *mini, t_env *env, t_lexer *lexer)
+void    export_new_var(t_mini *mini, t_env *env, char *cmd)
 {
 	t_env *envtmp;
-	t_lexer *lextmp;
 
-	lextmp = lexer;
 	envtmp = env;
 	(void)envtmp;
-	if(srch_index_c(lextmp->content, '=') != 0)
+	if(srch_index_c(cmd, '=') != 0)
 	{
 		envtmp = env;
-		env_add_back(mini, envnew(createname(lextmp->content), changeval(lextmp->content)));
+		env_add_back(mini, envnew(createname(cmd), changeval(cmd)));
 	}
 	else
-		env_add_back(mini, envnew(ft_strdup(lextmp->content), NULL));
+		env_add_back(mini, envnew(ft_strdup(cmd), NULL));
 }
 
-int	export_name_exist(t_env *env, t_lexer *lexer)
+int	export_name_exist(t_env *env, char *cmd)
 {	
 	t_env *envtmp;
-	t_lexer *lextmp;
 
 	envtmp = env;
-	lextmp = lexer;
 	while(envtmp)
 	{
-        if(ft_strcmp(createname(lextmp->content), envtmp->name) == 0) // on check si l arg = name 
+        if(ft_strcmp(createname(cmd), envtmp->name) == 0) // on check si l arg = name 
         {
-			if(srch_index_c(lextmp->content, '=') != 0) // on check si il y a un egal dans l arg
+			if(srch_index_c(cmd, '=') != 0) // on check si il y a un egal dans l arg
 			{
-				envtmp->value = ft_calloc(ft_strlen(lextmp->content) + 1, sizeof(char));
-				envtmp->value = changeval(lextmp->content);
+				envtmp->value = ft_calloc(ft_strlen(cmd) + 1, sizeof(char));
+				envtmp->value = changeval(cmd);
 				return(0);
 			}
 			return(1);
@@ -125,29 +121,30 @@ int	export_name_exist(t_env *env, t_lexer *lexer)
 	}
 	return(-1);	
 }
-void    export(t_env *env, t_lexer *lexer, t_mini *mini)
+
+void    export(t_env *env, char **cmd, t_mini *mini)
 {
 	t_env   *envtmp;
-	t_lexer *lextmp;
+ 	
 	int is_in_env;
 
+	int i = 0;
 	(void)mini;
-	(norm(),is_in_env = 0, envtmp = env, lextmp = lexer);
-	if (lextmp->next == NULL)
+	(norm(),is_in_env = 0, envtmp = env);
+	if (cmd[1] == NULL)
 		print_env_export(env);
-    lextmp = lexer->next;
-	while(lextmp)
+	while(cmd[i])
 	{
-    	if(lextmp->cmds == 1) // on check si il y a un arg valide apres export
-   		{
-			if(export_name_exist(envtmp, lextmp) == 1)
+    	//if(cmd) // on check si il y a un arg valide apres export
+   		//{
+			if(export_name_exist(envtmp, cmd[i]) == 1)
 			{
 				is_in_env++;
 				return;
 			}
-		}
+		//}
 		if(is_in_env == 0)
-			export_new_var(mini, envtmp, lextmp);
-		lextmp = lextmp->next;
+			export_new_var(mini, envtmp, cmd[i]);
+		i++;
 	}
 }

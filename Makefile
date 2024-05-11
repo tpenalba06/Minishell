@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/03 19:07:34 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/10 21:37:55 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,19 +24,18 @@ SRC = 	main.c \
 		parser/get_env.c \
 		parser/checkdollz.c \
 		builtins/echo.c \
-		builtins/export.c \
-		builtins/unset.c \
 		lexer/remove_quotes.c \
 		lexer/lexer_utils.c \
 		utils/utils.c \
 		utils/utils2.c \
-		parser/env_utils.c
-		
-		#heredoc/heredoc.c \
-		
-		
-
-
+		utils/utils3.c\
+		utils/utils4.c\
+		parser/env_utils.c\
+		parser/env_utils2.c\
+		exec/pipe.c\
+		exec/executor.c\
+		builtins/export.c\
+		builtins/unset.c
 
 OBJ = $(SRC:.c=.o)
 

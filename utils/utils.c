@@ -1,5 +1,17 @@
 #include "../minishell.h"
 
+int ft_strchr_int(char *str, char c)
+{
+    int i;
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == c)
+            return(i);
+        i++;
+    }
+    return(0);
+}
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -49,3 +61,26 @@ size_t	ft_strlcat(char *s1, const char *s2, size_t n)
 	return (j + ft_strlen(s2));
 }
 
+char	*ft_strdup(const char *s1)
+{
+	char	*p;
+	int		i;
+	int		l;
+
+	if (!s1)
+		return (NULL);
+	i = 0;
+	l = 0;
+	while (s1[l])
+		l++;
+	p = malloc(sizeof (char) * (l + 1));
+	if (p == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		p[i] = s1[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
+}

@@ -6,9 +6,11 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:59:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/28 16:01:44 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/09 21:02:54 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 int	get_heredoc_file(int hd, int mode)
 {

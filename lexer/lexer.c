@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/06 15:25:48 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:20:10 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void terror(char *str, t_lexer *lexer)
 {
 	lexer->error = 1;
+	printf("LA\n");
 	printf("syntax error near unexpected token `%s' \n", str);
 	rl_on_new_line();
 }
@@ -24,23 +25,21 @@ void check_syntax(t_lexer *lexer)
 {
 	t_lexer *tmp;
 
+	lexer->error = 0;
 	tmp = lexer;
 	if(tmp == NULL)
 		return;
-	if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
-		return(terror(tmp->content, lexer));
-	if(tmp->token == pipee)
-		return(terror(tmp->content, lexer));
-	if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
-		return(terror(tmp->content, lexer));
+	// if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
+	// 	return(terror(tmp->content, lexer));
+	//if(tmp->token == pipee)
+	//	return(terror(tmp->content, lexer));
+	// if(tmp->content[0] == '\0' || tmp->content[0] == '\n')
+	// 	return(terror(tmp->content, lexer));
 	while (tmp)
 	{
-		if(tmp->next)
-		{
-			if((tmp->token != undefined && tmp->token != pipee && tmp->next->token != 0) ) 
-				return(terror(tmp->content, lexer));
-		}
 		if(tmp->token != 0 && tmp->next == NULL)
+			return(terror(tmp->content, lexer));
+		if(tmp->token != 0 && tmp->next->token != 0)
 			return(terror(tmp->content, lexer));
 		tmp = tmp->next;
 	}
@@ -52,10 +51,7 @@ void	lexluthor(t_mini *mini, t_parsing *parsing)
 	fill_lst(mini, parsing);
 	tokenize(mini);
 	if(mini->lexer)
-	{
-		mini->lexer->error = 0;
 		check_syntax(mini->lexer);
-	}
 }
 
 //gerer les pipes mm qd ils sont colles avancer 1 char par 1 char

@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 18:21:32 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 15:47:16 by tpenalba         ###   ########.fr       */
+/*   Created: 2024/05/10 13:59:03 by tpenalba          #+#    #+#             */
+/*   Updated: 2024/05/10 13:59:19 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	env(t_env *env)
+int	ft_atoi(const char *str)
 {
-	t_env *tmp;
-	tmp = env;
-	if (ft_strcmp(tmp->content, "env") == 0)
+	int				neg;
+	int				num;
+	unsigned long	i;
+
+	i = 0;
+	neg = 1;
+	num = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		while (tmp)
-		{
-			if (exported){
-			ft_putstr(tmp->name);
-			write(STDOUT_FILENO, "=", 1);
-            ft_putstr(tmp->value);
-            write(STDOUT_FILENO, "\n", 1);
-			}
-			tmp = tmp->next;
-		}
+		if (str[i] == '-')
+			neg = -1;
+		i++;
 	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = (num * 10) + str[i] - '0';
+		i++;
+	}
+	return (num * neg);
 }

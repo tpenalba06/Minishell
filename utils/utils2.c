@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 19:07:07 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 22:10:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:14:49 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strdup(char *src)
-{
-	int		size;
-	int		i;
-	int		j;
-	char	*dest;
-
-	i = 0;
-	j = 0;
-	if (!src)
-    {
-        return (NULL);
-    }
-	size = ft_strlen(src);
-	dest = malloc((size + 1) * sizeof (char));
-	if (dest == NULL)
-		return (NULL);
-	while (src[i] != '\0')
-	{
-		dest[j] = src[i];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
 
 void ft_putstr(char *str)
 {
@@ -89,6 +63,22 @@ int	ft_strcmp(const char *s1, const char *s2)
 	if(!s1 || !s2)
 		return(1);
 	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (s1 == 0 || s2 == 0)
+		return (1);
+	while (i < n && (s1[i] != '\0' || s2[i] != '\0'))
 	{
 		if (s1[i] != s2[i])
 			return ((unsigned char)s1[i] - (unsigned char)s2[i]);

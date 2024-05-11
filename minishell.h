@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 21:57:12 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:37:45 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,13 @@ typedef enum e_cmds
 	APPEND,
 	METACHAR,
 	BUILTIN,
-	HERE_DOC_DELIM
+	VAR_ASSIGN,
+	CMD_DELIM,
+	HERE_STRING,
+	HERE_DOC_DELIM,
+	REDIR_ID,
+	IN_OUT_FILE,
+	DELIM
 	
 } t_cmds;
 
@@ -83,10 +89,11 @@ typedef struct s_parsing
 typedef struct s_env t_env;
 typedef struct s_env
 {
-	char *name;
-	char *value;
-	char *content;
-	t_env *next;
+	char 	*name;
+	char	*value;
+	char 	*content;
+	bool	is_exported;
+	t_env 	*next;
 }t_env;
 
 typedef struct s_tool
@@ -115,23 +122,46 @@ typedef struct s_command
 	struct s_command	*next;
 }t_command;
 
-/*
-typedef struct s_cmd 
+typedef struct t_redir {
+	int in;
+	int out;
+}	t_redir;
+
+typedef struct t_cmd_processing {
+	char			**cmd;
+	char			*cmd_name;
+	bool			is_builtin;
+	char			*full_path;
+	t_redir			redir;
+}	t_cmd_processing;
+
+typedef struct s_ret_cmd
 {
-	char 	*content;
-	char 	**arg;
-	t_token	token;
-	t_cmd	*next;
-}	t_cmd;
-*/
+	pid_t	pid;
+	int		fd;
+	int		pipes[2];
+	int		n_cmd;
+	int		*heredoc_no;
+}	t_ret_cmd;
+
+typedef struct s_path
+{
+	char **tabchar;
+	char *tab;
+} t_path;
+
 typedef struct s_mini
 {
-	char 		**charenv;
-	int			fdin;
-	int			fdout;
-	t_parsing	*parsing;
-	t_lexer		*lexer;
-	t_env		*env;
+	char 				**charenv;
+	int					fdin;
+	int					fdout;
+	bool				env_changed;
+	t_parsing			*parsing;
+	t_lexer				*lexer;
+	t_env				*env;
+	t_redir				*redir;
+	t_path				*path;
+	t_cmd_processing 	cmd_processing;
 }	t_mini;
 
 
@@ -172,6 +202,7 @@ char	what_token(char c);
 //parsseur
 void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
+char	**re_char_etoile_etoilise_env(t_env *env);
 
 //par ici la money
 char 	*change_env(char *name, t_mini *mini);
@@ -187,7 +218,7 @@ void	ft_bzero(void *s, size_t n);
 void	norm(void);
 char 	srch_index_c(char *str, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(char *src);
+char	*ft_strdup(const char *src);
 void 	ft_putstr(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *str, int fd);
@@ -197,17 +228,56 @@ void 	redisplay_error(void);
 size_t	ft_strlcat(char *s1, const char *s2, size_t n);
 int		ft_strlcpy(char *dst, const char *src, unsigned int size);
 size_t	ft_strlen(const char *str);
+int 	ft_strchr_int(char *str, char c);
+int		ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
+char	*ft_strjoinps(char *s1, char *s2);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+
+//path
+void	executor(t_mini *mini);
+char	*find_path(t_mini *mini, char **env, char **cmd);
+void	pipex(t_mini *mini, char **av, char **envp);
 
 //bulle tine
-int 	is_echo(t_parsing *parsing);
-void 	export(t_env *env, t_lexer *lexer, t_mini *mini);
-void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
-void	print_env(t_env *env, t_lexer *lexer);
-t_env   *unset(t_env *env, t_lexer *lexer);
+// int 	is_echo(t_parsing *parsing);
+void    export(t_env *env, char **cmd, t_mini *mini);
+// void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
+// void	print_env(t_env *env, t_lexer *lexer);
+t_env    *unset(t_env *env, char **cmd);
+// long	exec_bltin(t_cmd_processing *cmd, t_tool *t, bool one);
 
-//circulez svp
-int			get_heredoc_file(int hd, int mode);
-void		unlink_heredocs(t_command *cmd);
-int			here_doc(t_command *cmd, t_tool *tool);
+// //circulez svp
+// int			get_heredoc_file(int hd, int mode);
+// void		unlink_heredocs(t_command *cmd);
+// int			here_doc(t_command *cmd, t_tool *tool);
+// void		close_files(t_redir_pipe *redir);
+// void		perform_redirections(t_cmd_processing *cmd, t_ret_cmd *ret);
+
+// //exector
+// long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
+
+// //mainloop
+// long		ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd);
+// static long	aexec(t_cmd_processing *c_p, t_tool *t, t_ret_cmd *ret, int *n_cmd);
+// static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool n_empty);
+// static long	c_get(t_cmd_processing *c_p, t_command **cmd, t_ret_cmd *r, int *n);
+// static long	qaexec(t_cmd_processing *c_p, long err, t_ret_cmd *ret, int *n_cmd);
+// //exec_doer
+// long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
+// void		crt_child(t_cmd_processing *cmd, t_tool *t, t_ret_cmd *ret);
+// static void	child(t_cmd_processing *cmd, t_tool *t, char **c_env, t_ret_cmd *ret);
+// //exec utils
+// void		close_pipes(int *pipes);
+// void		exec_cleaner(t_cmd_processing cmd_processing);
+// t_command	*go_to_next_cmd(t_command *cmd);
+// void		free_redirs(t_redir_pipe *redir);
+// int			count_cmds(t_command *cmd);
+// //exec_loop_utils
+// void	init_cp(t_cmd_processing *cmd_processing, t_tool *tool, t_command *cmd);
+// bool	has_command(t_command *cmd);
+// //cmd
+// int	get_cmd(t_cmd_processing *cmd_processing, t_command *cmd, int *hd_no);
 
 #endif

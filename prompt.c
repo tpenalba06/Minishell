@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 22:10:47 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:19:39 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 			continue;
 		if (mini->lexer->error == 1)
 			continue;
+		printf("apres error\n");
 		parse_cmds(mini->lexer);
 		//check_builtins(mini->env, mini->parsing, mini->lexer, mini);
 		sort_env(mini->env);
+		executor(mini);
 		del_first_lex(mini, parsing);
 		//free(mini->parsing);
 	}

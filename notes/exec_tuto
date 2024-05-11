@@ -31,22 +31,25 @@ t_redir {
 	int out;
 }
 
+full cmd doit prendre les commandes donc chaque tableau 
+est une commande on saut les pipes et les redir 
 unsigned long n_cmd = count_pipes() + 1;
+
 while (cmd != NULL) {
 	redir.in = -1;
 	redir.out = -1;
 	if (n_cmd > 1) { pipe(pipe); }
-	full_cmd = parse_into_char();
+	full_cmd = parse_into_char(); 
 	perform_redir();
 	is_builtin = is_builtin(premier arg)
 	if (!is_builtin) {
-		full_path = search_cmd();
+		full_path = search_cmd(); = rechercher dans le path 
 	}
-	if (env_changed) {
+	if (env_changed ( donc modif dans export unset on met un booleen)) {
 		c_env = re_char_etoile_etoilise_env();
 		env_changed = false;
 	}
-	exec()
+	exec_machin()
 	cmd = go_next_cmd()
 }
 father_waiting_for_all_children()

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:30 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 14:12:22 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:36:31 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ char  *getname(char *str)
 	return(newname);
 }
 
-t_env    *unset(t_env *env, t_lexer *lexer)
+t_env    *unset(t_env *env, char **cmd)
 {
-    t_lexer *lextmp;
     t_env   *envtmp;
     t_env   *prev;
     char *name;
+	int i;
 
-	if(lexer->next == NULL)
-		return(env) ;
+	i = 0;
+	if(cmd[1] == NULL)
+		return(0) ;
     envtmp = env;
-    lextmp = lexer->next;
     prev = env;
-    while(lextmp)
+    while(cmd[i])
     {
-		name = getname(lextmp->content);
+		name = getname(cmd[i]);
         while(envtmp)
         {
 			if (envtmp == env && ft_strcmp(envtmp->name, name) == 0) 
@@ -76,7 +76,7 @@ t_env    *unset(t_env *env, t_lexer *lexer)
 			prev = envtmp;
             envtmp = envtmp->next;
         }
-        lextmp = lextmp->next;
+       	i++;
 		envtmp = env;
     }
 	return(env);
