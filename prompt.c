@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 21:19:39 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:14:59 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 		if (mini->lexer->error == 1)
 			continue;
 		printf("apres error\n");
+		//heredoc
 		parse_cmds(mini->lexer);
 		//check_builtins(mini->env, mini->parsing, mini->lexer, mini);
 		sort_env(mini->env);

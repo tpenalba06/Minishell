@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 21:37:45 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:12:57 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # include <string.h>
 # include <dirent.h>
 # include <termios.h>
+
+extern int g_sig_rec;
 
 typedef enum e_token
 {
@@ -125,24 +127,27 @@ typedef struct s_command
 typedef struct t_redir {
 	int in;
 	int out;
+	int	heredoc_no;
 }	t_redir;
-
-typedef struct t_cmd_processing {
-	char			**cmd;
-	char			*cmd_name;
-	bool			is_builtin;
-	char			*full_path;
-	t_redir			redir;
-}	t_cmd_processing;
 
 typedef struct s_ret_cmd
 {
 	pid_t	pid;
 	int		fd;
 	int		pipes[2];
-	int		n_cmd;
-	int		*heredoc_no;
+	unsigned long	n_cmd;
+	unsigned long	remaining;
 }	t_ret_cmd;
+
+typedef struct t_cmd_processing {
+	char			**cmd;
+	char 			**charenv;
+	char			*cmd_name;
+	bool			is_builtin;
+	char			*full_path;
+	t_redir			redir;
+	t_ret_cmd		ret;
+}	t_cmd_processing;
 
 typedef struct s_path
 {
@@ -156,6 +161,8 @@ typedef struct s_mini
 	int					fdin;
 	int					fdout;
 	bool				env_changed;
+	int					argg;
+	int					countpipe;
 	t_parsing			*parsing;
 	t_lexer				*lexer;
 	t_env				*env;
@@ -199,6 +206,9 @@ t_token	is_token(char *str);
 char 	*fill_token(char *str, t_parsing *parsing, char **list);
 char	what_token(char c);
 
+int	here_doc(t_lexer *lexer);
+void	handle_signals(int signal);
+
 //parsseur
 void    parse_cmds(t_lexer *lexer);
 void 	get_env(t_env *env, t_mini *mini);
@@ -232,7 +242,9 @@ int 	ft_strchr_int(char *str, char c);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoinps(char *s1, char *s2);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_putendl_fd(char *s, int fd);
+char	*ft_itoa(int n);
 
 
 //path
@@ -241,12 +253,19 @@ char	*find_path(t_mini *mini, char **env, char **cmd);
 void	pipex(t_mini *mini, char **av, char **envp);
 
 //bulle tine
-// int 	is_echo(t_parsing *parsing);
-void    export(t_env *env, char **cmd, t_mini *mini);
+//int 	is_echo(t_parsing *parsing);
+int    export(t_env *env, char **cmd, t_mini *mini);
 // void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
 // void	print_env(t_env *env, t_lexer *lexer);
-t_env    *unset(t_env *env, char **cmd);
+int    *unset(t_env *env, char **cmd);
 // long	exec_bltin(t_cmd_processing *cmd, t_tool *t, bool one);
+int		ft_cd(char **args, t_env *env);
+int		env_add(const char *value, t_env *env);
+int		is_in_env(t_env *env, char *args);
+void	*ft_memdel(void *ptr);
+char	*get_env_name(char *dest, const char *src);
+
+int		ft_pwd(void);
 
 // //circulez svp
 // int			get_heredoc_file(int hd, int mode);

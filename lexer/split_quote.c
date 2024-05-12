@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:14:24 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 22:03:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:32:54 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	*cut_word(char *line)
 	}
 	return (word);
 }
-
 
 char	**split_line(char *str, t_parsing parsing)
 {

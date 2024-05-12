@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 21:41:14 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:18:31 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char  *changeval(char *str)
 	}
 	return(newval);
 }
+
 int	there_is_equal(char *str)
 {
 	while(*str)
@@ -122,7 +123,7 @@ int	export_name_exist(t_env *env, char *cmd)
 	return(-1);	
 }
 
-void    export(t_env *env, char **cmd, t_mini *mini)
+int    export(t_env *env, char **cmd, t_mini *mini)
 {
 	t_env   *envtmp;
  	
@@ -140,11 +141,12 @@ void    export(t_env *env, char **cmd, t_mini *mini)
 			if(export_name_exist(envtmp, cmd[i]) == 1)
 			{
 				is_in_env++;
-				return;
+				return (0);
 			}
 		//}
 		if(is_in_env == 0)
 			export_new_var(mini, envtmp, cmd[i]);
 		i++;
 	}
+	return(0);
 }

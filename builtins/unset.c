@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:30 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 21:36:31 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:00:08 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char  *getname(char *str)
 	return(newname);
 }
 
-t_env    *unset(t_env *env, char **cmd)
+int    *unset(t_env *env, char **cmd)
 {
     t_env   *envtmp;
     t_env   *prev;
@@ -79,5 +79,5 @@ t_env    *unset(t_env *env, char **cmd)
        	i++;
 		envtmp = env;
     }
-	return(env);
+	return(0);
 }

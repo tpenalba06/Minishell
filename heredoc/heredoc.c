@@ -6,11 +6,14 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:59:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/09 21:02:54 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:21:07 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#define TEMP "/tmp/shell_here"
+#define READ 0
+#define WRITE 1
 
 int	get_heredoc_file(int hd, int mode)
 {
@@ -26,15 +29,14 @@ int	get_heredoc_file(int hd, int mode)
 		return (-1);
 	free(itoaed);
 	fd = 0;
-	if (mode == READ)
-		fd = open(filename, O_RDONLY);
-	else if (mode == WRITE)
+	unlink(filename);
+	if (mode == WRITE)
 		fd = open(filename, O_CREAT | O_WRONLY, 0666);
 	free(filename);
 	return (fd);
 }
 
-static void	write_heredoc(int fd, char *eof, t_tool *tool)
+static void	write_heredoc(int fd, char *eof)
 {
 	char	*line;
 	char	*temp;
@@ -43,10 +45,10 @@ static void	write_heredoc(int fd, char *eof, t_tool *tool)
 	lines = 0;
 	while (++lines)
 	{
-		line = new_prompt(2, tool);
+		line = readline("> ");
 		if (!line)
 		{
-			warning_heredoc_eof(lines, eof);
+			printf("NONONNNNN\n");
 			break ;
 		}
 		if (!ft_strcmp(line, eof))
@@ -63,7 +65,14 @@ static void	write_heredoc(int fd, char *eof, t_tool *tool)
 	}
 }
 
-static int	heredoc_child(int fd, char *eof, t_tool *tool)
+void	sig_catch(int sig)
+{
+	printf("\n");
+	rl_replace_line("", 0);
+	g_sig_rec = sig;
+}
+
+static int	heredoc_child(int fd, char *eof)
 {
 	pid_t	pid;
 
@@ -72,27 +81,33 @@ static int	heredoc_child(int fd, char *eof, t_tool *tool)
 		return (1);
 	else if (pid == 0)
 	{
-		signal(SIGINT, heredoc_handle);
-		eof = quote_removal(ft_strdup(eof));
-		write_heredoc(fd, eof, tool);
+		eof = ft_strdup(eof);
+		signal(SIGINT, SIG_DFL);
+		remove_excess_quote(eof);
+		write_heredoc(fd, eof);
 		free(eof);
 		exit(0);
 	}
+	signal(SIGINT, sig_catch);
+	g_sig_rec = 0;
 	while (waitpid(pid, 0, WNOHANG) == 0)
 	{
 		if (g_sig_rec == SIGINT)
 		{
+			printf("My child died because I killed it\n");
 			kill(pid, SIGINT);
 			waitpid(pid, 0, 0);
 			g_sig_rec = 0;
+			signal(SIGINT, handle_signals);
 			return (130);
 		}
 		continue ;
 	}
+	signal(SIGINT, handle_signals);
 	return (0);
 }
 
-static int	create_heredoc(int index, t_command *cmd, t_tool *tool)
+static int	create_heredoc(int index, t_lexer *lexer)
 {
 	int	fd_heredoc;
 	int	ret;
@@ -100,41 +115,35 @@ static int	create_heredoc(int index, t_command *cmd, t_tool *tool)
 	fd_heredoc = get_heredoc_file(index, WRITE);
 	if (fd_heredoc <= 0)
 		return (1);
-	if (cmd->purpose == HERE_DOC_DELIM)
-	{
-		ret = heredoc_child(fd_heredoc, cmd->content, tool);
-		if (ret)
-			return (ret);
-	}
-	else
-	{
-		cmd->content = quote_removal(cmd->content);
-		write(fd_heredoc, cmd->content, ft_strlen(cmd->content));
-		write(fd_heredoc, "\n", 1);
-	}
+	ret = heredoc_child(fd_heredoc, lexer->content);
+	if (ret)
+		return (ret);
 	close(fd_heredoc);
 	return (0);
 }
 
-int	here_doc(t_command *cmd, t_tool *tool)
+int	here_doc(t_lexer *lexer)
 {
 	int	i;
 	int	ret;
 
+	if (!lexer || !lexer->content)
+		return (0);
 	i = 0;
 	ret = 0;
-	while (cmd->next)
+	while (lexer->next)
 	{
-		if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
+		printf("%d\n", lexer->cmds);
+		if (lexer->token == less_less && lexer->next)
 		{
-			ret = create_heredoc(i, cmd, tool);
+			ret = create_heredoc(i, lexer->next);
 			if (ret)
 				return (ret);
 			i++;
 		}
-		cmd = cmd->next;
+		lexer = lexer->next;
 	}
-	if (cmd->purpose == HERE_DOC_DELIM || cmd->purpose == HERE_STRING)
-		ret = create_heredoc(i, cmd, tool);
+	if (lexer->token == less_less && lexer->next)
+		ret = create_heredoc(i, lexer->next);
 	return (ret);
 }

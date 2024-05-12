@@ -6,9 +6,11 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:50:05 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 17:51:44 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:07:28 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+int g_sig_rec;
 
 #include "minishell.h"
 

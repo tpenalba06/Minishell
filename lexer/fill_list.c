@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 21:39:09 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/12 22:51:03 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,31 @@ void printList (t_mini *mini)
 	}
 }
 
+static void unlink_here(int n) {
+	char	*lol;
+
+	lol = ft_strjoin("/tmp/shell_here", ft_itoa(n));
+	if (!lol)
+		return ;
+	unlink(lol);
+	free(lol);
+}
+
 void del_first_lex(t_mini *mini, t_parsing *parsing)
 {
 	t_lexer *tmp;
 	t_lexer *tmp2;
+	int		here;
+
+	here = 0;
 	tmp = mini->lexer;
 	free(parsing->tab);
 	while(tmp)
 	{
+		if (tmp->cmds == HEREDOC) {
+			unlink_here(here);
+			here++;
+		}
 		free(tmp->content);
 		tmp2 = tmp->next;
 		free(tmp);
@@ -128,7 +145,6 @@ void fill_lst (t_mini *mini, t_parsing *parsing)
 	i = 0;
 	while (parsing->tab[i])
 	{
-		parsing->tab[i] = change_env(parsing->tab[i], mini);
 		remove_excess_quote(parsing->tab[i]);
 		lstadd_back(mini, lstnew(parsing->tab[i]));
 		lstlast(mini->lexer)->token = indefini;

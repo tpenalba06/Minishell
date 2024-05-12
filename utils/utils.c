@@ -10,7 +10,7 @@ int ft_strchr_int(char *str, char c)
             return(i);
         i++;
     }
-    return(0);
+    return(-1);
 }
 size_t	ft_strlen(const char *str)
 {

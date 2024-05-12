@@ -6,11 +6,26 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:59:03 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 13:59:19 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:21:36 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s == NULL)
+		return ;
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+}
 
 int	ft_atoi(const char *str)
 {

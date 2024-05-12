@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/04/27 20:54:12 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:58:08 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,3 @@ int				ft_echo(char **args)
 	return (1);
 }
 
-int is_echo(t_parsing *parsing)
-{
-    if ((ft_strcmp(parsing->tab[0], "echo") == 0)
-        && (what_token(parsing->tab[1][0]) == 0))
-        {
-            if(ft_echo(parsing->tab) == 1)
-                return(1);
-        }
-    return(0);
-}
