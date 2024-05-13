@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:17:13 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 17:18:01 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:45:37 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ t_env	*envlast(t_env *lst)
 	if (!lst)
 		return (0);
 	while (lst->next)
-	{
 		lst = lst->next;
-	}
 	return (lst);
 }
 
@@ -44,6 +42,7 @@ void	env_add_back(t_mini *mini, t_env *new)
 	else
 		envlast(mini->env)->next = new;
 }
+
 t_env	*envnew(char *name, char *value)
 {
 	t_env	*lst;
@@ -51,8 +50,9 @@ t_env	*envnew(char *name, char *value)
 	lst = malloc(sizeof(t_env));
 	if (!lst)
 		return (NULL);
-	lst -> name = name;
+	lst->name = name;
     lst->value = value;
-	lst -> next = NULL;
+	lst->next = NULL;
+	
 	return (lst);
 }

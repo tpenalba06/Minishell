@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:59:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 23:21:07 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:49:20 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	write_heredoc(int fd, char *eof)
 		line = readline("> ");
 		if (!line)
 		{
-			printf("NONONNNNN\n");
 			break ;
 		}
 		if (!ft_strcmp(line, eof))
@@ -122,28 +121,3 @@ static int	create_heredoc(int index, t_lexer *lexer)
 	return (0);
 }
 
-int	here_doc(t_lexer *lexer)
-{
-	int	i;
-	int	ret;
-
-	if (!lexer || !lexer->content)
-		return (0);
-	i = 0;
-	ret = 0;
-	while (lexer->next)
-	{
-		printf("%d\n", lexer->cmds);
-		if (lexer->token == less_less && lexer->next)
-		{
-			ret = create_heredoc(i, lexer->next);
-			if (ret)
-				return (ret);
-			i++;
-		}
-		lexer = lexer->next;
-	}
-	if (lexer->token == less_less && lexer->next)
-		ret = create_heredoc(i, lexer->next);
-	return (ret);
-}

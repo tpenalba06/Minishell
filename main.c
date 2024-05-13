@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:50:05 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 23:07:28 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:29:06 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ int	main(int argc, char **argv, char **env)
 	ft_prompt(&mini, mini.parsing, env);
 	free(mini.parsing);
 	free(mini.lexer);
-	//system("leaks Minishell");
 	return (0);
 }

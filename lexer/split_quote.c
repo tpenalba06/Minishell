@@ -6,13 +6,11 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 17:14:24 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 17:00:46 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:52:40 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 char	update_quote(char quote, char cur)
 {
@@ -35,21 +33,20 @@ static int	count(char *str)
 	int		count;
 	char	quote;
 
-	(norm(),i = 0, quote = 0, count = 0);
+	(norm(), i = 0, quote = 0, count = 0);
 	while (str[i])
 	{
-		if (((str[i] != ' ' &&(what_token(str[i]) == 0)) || quote) && str[i])
+		if (((str[i] != ' ' && (what_token(str[i]) == 0)) || quote)
+			&& str[i])
 		{
-			while (((str[i] != ' ' && (what_token(str[i]) == 0))|| quote) && str[i])
-			{
-				i++;
-				iterate(&quote, str[i]);
-			}
+			while (((str[i] != ' ' && (what_token(str[i]) == 0)) || quote)
+				&& str[i])
+				i += iterate(&quote, str[i]);
 			count++;
 		}
 		while (str[i] == ' ' && !quote && str[i])
 			i += iterate(&quote, str[i]);
-		if(what_token(str[i]) != 0)
+		if (what_token(str[i]) != 0)
 		{
 			count++;
 			i++;
@@ -63,6 +60,7 @@ static char	*cut_word(char *line)
 	int		i;
 	char	quote;
 	char	*word;
+
 	i = 0;
 	quote = 0;
 	while (((line[i] != ' ' && (what_token(line[i]) == 0)) || quote) && line[i])
@@ -72,7 +70,8 @@ static char	*cut_word(char *line)
 		return (NULL);
 	i = 0;
 	quote = 0;
-	while (((line[i] != ' ' && (what_token(line[i]) == 0)) || quote)  && line[i] != '\0')
+	while (((line[i] != ' ' && (what_token(line[i]) == 0)) || quote)
+		&& line[i] != '\0')
 	{
 		word[i] = line[i];
 		iterate(&quote, line[i]);
@@ -86,7 +85,7 @@ char	**split_line(char *str, t_parsing parsing)
 	char	**list;
 	char	quote;
 
-	(norm(),parsing.index = 0, quote = 0);
+	(norm(), parsing.index = 0, quote = 0);
 	list = ft_calloc((count(str) + 1000), sizeof(char *));
 	if (list == NULL)
 		return (NULL);
@@ -105,10 +104,7 @@ char	**split_line(char *str, t_parsing parsing)
 		while (*str == ' ' && !quote && *str)
 			str += iterate(&quote, *str);
 	}
-	if(update_quote(quote, *str) != 0)
+	if (update_quote(quote, *str) != 0)
 		rl_on_new_line();
-	free(str);
 	return (list);
 }
-
-

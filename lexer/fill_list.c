@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 16:54:35 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:02:27 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ static void unlink_here(int n) {
 
 void del_first_lex(t_mini *mini, t_parsing *parsing)
 {
-	t_lexer *tmp;
-	t_lexer *tmp2;
+	t_lexer	*tmp;
+	t_lexer	*tmp2;
 	int		here;
 	int		i;
 
@@ -125,13 +125,13 @@ void del_first_lex(t_mini *mini, t_parsing *parsing)
 	here = 0;
 	tmp = mini->lexer;
 	free(parsing->tab);
-	while(tmp)
+	while (tmp)
 	{
-		if (tmp->cmds == HEREDOC) {
+		if (tmp->cmds == HEREDOC)
+		{
 			unlink_here(here);
 			here++;
 		}
-		free(mini->cmd_processing.cmd[i]);
 		free(tmp->content);
 		tmp2 = tmp->next;
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 16:06:28 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 19:42:14 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ void    export_new_var(t_mini *mini, t_env *env, char *cmd)
 		env_add_back(mini, envnew(createname(cmd), changeval(cmd)));
 	}
 	else
+	{
 		env_add_back(mini, envnew(ft_strdup(cmd), NULL));
+	}
 }
 
 int	export_name_exist(t_env *env, char *cmd)

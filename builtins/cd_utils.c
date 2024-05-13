@@ -6,13 +6,13 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 17:09:37 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/11 17:09:41 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:15:58 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char		*get_env_name(char *dest, const char *src)
+char	*get_env_name(char *dest, const char *src)
 {
 	int		i;
 
@@ -26,7 +26,6 @@ char		*get_env_name(char *dest, const char *src)
 	return (dest);
 }
 
-
 void	*ft_memdel(void *ptr)
 {
 	if (ptr)
@@ -36,7 +35,8 @@ void	*ft_memdel(void *ptr)
 	}
 	return (NULL);
 }
-int			is_in_env(t_env *env, char *args)
+
+int	is_in_env(t_env *env, char *args)
 {
 	char	var_name[4096];
 	char	env_name[4096];
@@ -56,7 +56,7 @@ int			is_in_env(t_env *env, char *args)
 	return (1);
 }
 
-int			env_add(const char *value, t_env *env)
+int	env_add(const char *value, t_env *env)
 {
 	t_env	*new;
 	t_env	*tmp;

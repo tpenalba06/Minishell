@@ -6,81 +6,51 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:06:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/09 18:33:54 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:26:39 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	dup_redir(t_redir_pipe *redir, t_ret_cmd *ret)
+static int handle_redir(t_lexer *lex, t_redir *redir)
 {
-	if (redir->fd_read != -1)
-		dup2(redir->fd_read, redir->fd_end);
-	if (redir->fd_write == STDOUT_FILENO && ret->n_cmd != 1)
-		dup2(ret->pipes[1], redir->fd_end);
-	else if (redir->fd_write != -1)
-		dup2(redir->fd_write, redir->fd_end);
-	if (redir->here_string)
+	if (lex->cmds == IN_FILE || lex->cmds == HEREDOC)
 	{
-		perror(redir->here_string);
-		write(redir->fd_end, redir->here_string, ft_strlen(redir->here_string));
+		if (redir->in != -1)
+		{
+			close(redir->in);
+			redir->in = -1;
+		}
+		if (lex->cmds == IN_FILE)
+			redir->in = open(lex->content, O_RDONLY);
+		else
+		{
+			redir->in = open(ft_strjoin("/tmp/shell_here",
+						ft_itoa(redir->heredoc_no)), O_RDONLY);
+			redir->heredoc_no++;
+		}
+		if (redir->in == -1)
+		{
+			write(2, "No such file or directory\n", 27);
+			return (1);
+		}
 	}
-}
-
-void	perform_redirections(t_cmd_processing *cmd, t_ret_cmd *ret)
-{
-	bool			is_in_read_duped;
-	bool			is_out_write_duped;
-	t_redir_pipe	*redir;
-
-	is_in_read_duped = 0;
-	is_out_write_duped = 0;
-	redir = cmd->redir;
-	while (redir)
+	else
 	{
-		is_in_read_duped = (is_in_read_duped
-				|| (redir->fd_end == STDIN_FILENO && redir->fd_read != -1));
-		is_out_write_duped = (is_out_write_duped
-				|| (redir->fd_end == STDOUT_FILENO && redir->fd_write != -1));
-		dup_redir(redir, ret);
-		redir = redir->next;
+		if (redir->out != -1)
+		{
+			close(redir->out);
+			redir->out = -1;
+		}
+		if (lex->cmds == OUT_FILE)
+			redir->out = open(lex->content, O_CREAT | O_WRONLY);
+		else
+			redir->out = open(lex->content, O_CREAT | O_WRONLY | O_APPEND);
+		if (redir->out == -1)
+		{
+			write(2, "Permission denied\n", 19);
+			return (1);
+		}
 	}
-	if (!is_in_read_duped && ret->fd > -1)
-		dup2(ret->fd, STDIN_FILENO);
-	else if (!is_in_read_duped)
-		dup2(ret->pipes[0], STDIN_FILENO);
-	if (!is_out_write_duped && ret->n_cmd != 1)
-		dup2(ret->pipes[1], STDOUT_FILENO);
+	return (0);
 }
-/*
-void    redir(t_lexer *lexer, char *linepid_t pid)
-{
-    char *delim;
-    
-    pid_t   pid = fork();
-    if (pid == -1) {
-        printf("ERREUR");
-    } else if (pid == 0) {
-        // ENFANT
-        fd_tmp = open("/tmp/lol.tmp.1", O_WRITE);
-        signal(SIGINT, SIG_DFL);
-        while (true) {
-                line = readline();
-                if (line == NULL) {
-                        write(2, "unexpected machin truc");
-                        break ;
-                }
-                if (line == delim) {
-                        break ;
-                }
-                write(fd_tmp, line, ft_strlen(line));
-        }
-        exit(0);
-    } else {
-        // PARENT
-        signal(SIGINT, sigint_heredoc);
-        int status;
-        waitpid(pid, &status, 0);
-
-    }
-}*/

@@ -6,20 +6,33 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 19:39:03 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/09 19:39:19 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:01:44 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_files(t_redir_pipe *redir)
+int	here_doc(t_lexer *lexer)
 {
-	while (redir)
+	int	i;
+	int	ret;
+
+	if (!lexer || !lexer->content)
+		return (0);
+	i = 0;
+	ret = 0;
+	while (lexer->next)
 	{
-		if (redir->opened_read && redir->fd_read >= 0)
-			close(redir->fd_read);
-		if (redir->opened_write && redir->fd_write >= 0)
-			close(redir->fd_write);
-		redir = redir->next;
+		if (lexer->token == less_less && lexer->next)
+		{
+			ret = create_heredoc(i, lexer->next);
+			if (ret)
+				return (ret);
+			i++;
+		}
+		lexer = lexer->next;
 	}
+	if (lexer->token == less_less && lexer->next)
+		ret = create_heredoc(i, lexer->next);
+	return (ret);
 }

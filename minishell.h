@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 16:17:28 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:01:24 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ t_token	is_token(char *str);
 char 	*fill_token(char *str, t_parsing *parsing, char **list);
 char	what_token(char c);
 
-int	here_doc(t_lexer *lexer);
+int		here_doc(t_lexer *lexer);
 void	handle_signals(int signal);
 
 //parsseur
@@ -245,6 +245,8 @@ char	*ft_strjoinps(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
+void	free_char_tab(char **tab);
+
 
 
 //path

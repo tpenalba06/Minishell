@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 21:45:40 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 21:47:03 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:12:04 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,17 @@ char	*ft_itoa(int n)
 		i--;
 	}
 	return (s);
+}
+
+void	free_char_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

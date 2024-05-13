@@ -6,13 +6,13 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/11 19:58:08 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:18:24 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static	int		nb_args(char **args)
+static	int	nb_args(char **args)
 {
 	int		size;
 
@@ -24,31 +24,29 @@ static	int		nb_args(char **args)
 
 int	n_option(char **args, int i)
 {
-	int n_option;
-	int j;
+	int	n_option;
+	int	j;
 
 	n_option = 0;
 	j = 0;
-	
-
-		if(args[i][0] == '-')
+	if (args[i][0] == '-')
+	{
+		while (args[i][j] == '-' && args[i][j])
+			j ++;
+		if (args[i][j] == 'n')
 		{
-			while(args[i][j] == '-' && args[i][j])
-				j ++;
-			if(args[i][j] == 'n')
-			{
-				while(args[i][j] =='n' && args[i][j])
-					j++;
-			}
-			if(args[i][j] == '\0')
-				n_option = 1;
-			else 
-				n_option = 0;
+			while (args[i][j] =='n' && args[i][j])
+				j++;
 		}
-		return(n_option);
+		if (args[i][j] == '\0')
+			n_option = 1;
+		else
+			n_option = 0;
+	}
+	return (n_option);
 }
 
-int				ft_echo(char **args)
+int	ft_echo(char **args)
 {
 	int		i;
 	int		n_opt;
@@ -74,4 +72,3 @@ int				ft_echo(char **args)
 		write(1, "\n", 1);
 	return (1);
 }
-

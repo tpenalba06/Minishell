@@ -38,15 +38,14 @@ void get_env(t_env *env, t_mini *mini)
     while(mini->charenv[i])
     {
         str = split_env(mini->charenv[i], '=');
-        tmp = envnew(str[0], str[1]);
+        tmp = envnew(ft_strdup(str[0]), ft_strdup(str[1]));
         env_add_back(mini, tmp);
+        free_char_tab(str);
         i++;
     }
     tmp = mini->env;
     while (tmp)
-    {
-           tmp = tmp->next;
-    }
+        tmp = tmp->next;
 }
 
 static void	swap_content(t_env *env, t_env *next)
