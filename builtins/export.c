@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 22:18:31 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:06:28 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int    export(t_env *env, char **cmd, t_mini *mini)
  	
 	int is_in_env;
 
-	int i = 0;
+	int i = 1;
 	(void)mini;
 	(norm(),is_in_env = 0, envtmp = env);
 	if (cmd[1] == NULL)

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 22:51:03 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:54:35 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ void del_first_lex(t_mini *mini, t_parsing *parsing)
 	t_lexer *tmp;
 	t_lexer *tmp2;
 	int		here;
+	int		i;
 
+	i = 0;
 	here = 0;
 	tmp = mini->lexer;
 	free(parsing->tab);
@@ -129,9 +131,11 @@ void del_first_lex(t_mini *mini, t_parsing *parsing)
 			unlink_here(here);
 			here++;
 		}
+		free(mini->cmd_processing.cmd[i]);
 		free(tmp->content);
 		tmp2 = tmp->next;
 		free(tmp);
+		i++;
 		tmp = tmp2;
 	}
 	mini->lexer = tmp;

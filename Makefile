@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/12 21:51:22 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/13 16:28:05 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,11 +39,13 @@ SRC = 	main.c \
 		builtins/export.c\
 		builtins/unset.c\
 		builtins/pwd.c\
-		builtins/cd.c
+		builtins/cd.c\
+		builtins/builtins_exec.c\
+		builtins/env.c
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=leak
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=leak
 LDFLAGS = -lreadline
 
 .c.o:

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 23:12:57 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:17:28 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,50 +253,18 @@ char	*find_path(t_mini *mini, char **env, char **cmd);
 void	pipex(t_mini *mini, char **av, char **envp);
 
 //bulle tine
-//int 	is_echo(t_parsing *parsing);
-int    export(t_env *env, char **cmd, t_mini *mini);
-// void 	check_builtins(t_env *env, t_parsing *parsing, t_lexer *lexer, t_mini *mini);
-// void	print_env(t_env *env, t_lexer *lexer);
-int    *unset(t_env *env, char **cmd);
-// long	exec_bltin(t_cmd_processing *cmd, t_tool *t, bool one);
+int		exec_builtin(t_cmd_processing *cmd, t_env *env, t_mini *mini);
+int   	export(t_env *env, char **cmd, t_mini *mini);
 int		ft_cd(char **args, t_env *env);
+char	*get_env_name(char *dest, const char *src);
 int		env_add(const char *value, t_env *env);
 int		is_in_env(t_env *env, char *args);
 void	*ft_memdel(void *ptr);
-char	*get_env_name(char *dest, const char *src);
-
+int		unset(t_env *env, char **cmd);
 int		ft_pwd(void);
+int		ft_echo(char **args);
+int		ft_env(t_env *env);
 
 // //circulez svp
-// int			get_heredoc_file(int hd, int mode);
-// void		unlink_heredocs(t_command *cmd);
-// int			here_doc(t_command *cmd, t_tool *tool);
-// void		close_files(t_redir_pipe *redir);
-// void		perform_redirections(t_cmd_processing *cmd, t_ret_cmd *ret);
-
-// //exector
-// long	execute_the_line(t_command *cmd, t_tool *tool, int *heredoc_no);
-
-// //mainloop
-// long		ex_loop(t_command **cmd, t_tool *tool, t_ret_cmd *ret, int *n_cmd);
-// static long	aexec(t_cmd_processing *c_p, t_tool *t, t_ret_cmd *ret, int *n_cmd);
-// static long	c_get_ret(long err_status, t_ret_cmd *ret, int *n_cmd, bool n_empty);
-// static long	c_get(t_cmd_processing *c_p, t_command **cmd, t_ret_cmd *r, int *n);
-// static long	qaexec(t_cmd_processing *c_p, long err, t_ret_cmd *ret, int *n_cmd);
-// //exec_doer
-// long		wait_father(t_ret_cmd *ret, int n_cmd, long err);
-// void		crt_child(t_cmd_processing *cmd, t_tool *t, t_ret_cmd *ret);
-// static void	child(t_cmd_processing *cmd, t_tool *t, char **c_env, t_ret_cmd *ret);
-// //exec utils
-// void		close_pipes(int *pipes);
-// void		exec_cleaner(t_cmd_processing cmd_processing);
-// t_command	*go_to_next_cmd(t_command *cmd);
-// void		free_redirs(t_redir_pipe *redir);
-// int			count_cmds(t_command *cmd);
-// //exec_loop_utils
-// void	init_cp(t_cmd_processing *cmd_processing, t_tool *tool, t_command *cmd);
-// bool	has_command(t_command *cmd);
-// //cmd
-// int	get_cmd(t_cmd_processing *cmd_processing, t_command *cmd, int *hd_no);
 
 #endif

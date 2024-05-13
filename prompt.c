@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 23:14:59 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:34:11 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 		sort_env(mini->env);
 		executor(mini);
 		del_first_lex(mini, parsing);
-		//free(mini->parsing);
+		free(mini->parsing);
 	}
 }

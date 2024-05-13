@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:29:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/12 23:31:42 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:13:57 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ static int handle_redir(t_lexer *lex, t_redir *redir) {
     return (cmd);
 }
 
-static unsigned long	exec_it(t_cmd_processing *cp) 
+static unsigned long	exec_it(t_cmd_processing *cp, t_mini *mini) 
 {
 	if (cp->is_builtin && cp->ret.n_cmd == 1) 
 	{
-		return (exec_builtin(cp));
+		return (exec_builtin(cp, mini->env, mini));
 	}
 	if (pipe(cp->ret.pipes) == -1) {
 		perror("pipe");
@@ -156,7 +156,7 @@ static unsigned long	exec_it(t_cmd_processing *cp)
 		if (cp->ret.fd != -1)
 			close(cp->ret.fd);
 		if (cp->is_builtin)
-			exit(exec_builtin(cp));
+			exit(exec_builtin(cp, mini->env, mini));
 		else
 			execve(cp->full_path, cp->cmd, cp->charenv);
 		exit(1);
@@ -231,7 +231,7 @@ void	executor(t_mini *mini)
 			}
         }
 		if (mini->cmd_processing.cmd)
-        	ret = exec_it(&(mini->cmd_processing));
+        	ret = exec_it(&(mini->cmd_processing), mini);
 		else
 			ret = 1;
 		if(i == 0)
