@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 19:07:07 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 16:58:32 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:58:26 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-
-void ft_putstr(char *str)
+void	ft_putstr(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		write(STDOUT_FILENO, &str[i], 1);
 		i++;
@@ -60,8 +59,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
-	if(!s1 || !s2)
-		return(1);
+	if (!s1 || !s2)
+		return (1);
 	while (s1[i] != '\0' || s2[i] != '\0')
 	{
 		if (s1[i] != s2[i])

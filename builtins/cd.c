@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 20:17:16 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:33:23 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static char	*get_env_path(t_env *env, const char *var, size_t len)
 		if (ft_strncmp(env->value, var, len) == 0)
 		{
 			s_alloc = ft_strlen(env->value) - len;
-			if (!(oldpwd = malloc(sizeof(char) * s_alloc + 1)))
+			oldpwd = malloc(sizeof(char) * s_alloc + 1);
+			if (!oldpwd)
 				return (NULL);
-			i = 0;
-			j = 0;
+			(norm(), i = 0, j = 0);
 			while (env->value[i++])
 			{
 				if (i > (int)len)
@@ -59,9 +59,10 @@ static int	update_oldpwd(t_env *env)
 	char	cwd[PATH_MAX];
 	char	*oldpwd;
 
+	oldpwd = ft_strjoin("OLDPWD=", cwd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (0);
-	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
+	if (!oldpwd)
 		return (0);
 	if (is_in_env(env, oldpwd) == 0)
 		env_add(oldpwd, env);

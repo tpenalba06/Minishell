@@ -6,26 +6,27 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:22:21 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/03 17:46:49 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:34:33 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void norm(void)
-{}
-
+void	norm(void)
+{
+}
 
 char	what_token(char c)
 {
 	if (c == '|')
-		return(c);
+		return (c);
 	if (c == '<')
-		return(c);
+		return (c);
 	if (c == '>')
-		return(c);
-	return(0);
+		return (c);
+	return (0);
 }
+
 void	print_tab(char **tab)
 {
 	int	i;

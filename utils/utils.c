@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/13 22:25:13 by tpenalba          #+#    #+#             */
+/*   Updated: 2024/05/13 22:25:22 by tpenalba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int ft_strchr_int(char *str, char c)
+int	ft_strchr_int(char *str, char c)
 {
-    int i;
-    i = 0;
-    while(str[i])
-    {
-        if(str[i] == c)
-            return(i);
-        i++;
-    }
-    return(-1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
+
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;

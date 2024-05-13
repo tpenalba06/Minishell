@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 15:59:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 20:49:20 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 23:47:22 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	get_heredoc_file(int hd, int mode)
 	return (fd);
 }
 
-static void	write_heredoc(int fd, char *eof)
+void	write_heredoc(int fd, char *eof)
 {
 	char	*line;
 	char	*temp;
@@ -71,42 +71,7 @@ void	sig_catch(int sig)
 	g_sig_rec = sig;
 }
 
-static int	heredoc_child(int fd, char *eof)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-		return (1);
-	else if (pid == 0)
-	{
-		eof = ft_strdup(eof);
-		signal(SIGINT, SIG_DFL);
-		remove_excess_quote(eof);
-		write_heredoc(fd, eof);
-		free(eof);
-		exit(0);
-	}
-	signal(SIGINT, sig_catch);
-	g_sig_rec = 0;
-	while (waitpid(pid, 0, WNOHANG) == 0)
-	{
-		if (g_sig_rec == SIGINT)
-		{
-			printf("My child died because I killed it\n");
-			kill(pid, SIGINT);
-			waitpid(pid, 0, 0);
-			g_sig_rec = 0;
-			signal(SIGINT, handle_signals);
-			return (130);
-		}
-		continue ;
-	}
-	signal(SIGINT, handle_signals);
-	return (0);
-}
-
-static int	create_heredoc(int index, t_lexer *lexer)
+int	create_heredoc(int index, t_lexer *lexer)
 {
 	int	fd_heredoc;
 	int	ret;
@@ -120,4 +85,3 @@ static int	create_heredoc(int index, t_lexer *lexer)
 	close(fd_heredoc);
 	return (0);
 }
-

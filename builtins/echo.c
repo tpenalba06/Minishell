@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 20:18:24 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:22:21 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	n_option(char **args, int i)
 			j ++;
 		if (args[i][j] == 'n')
 		{
-			while (args[i][j] =='n' && args[i][j])
+			while (args[i][j] == 'n' && args[i][j])
 				j++;
 		}
 		if (args[i][j] == '\0')

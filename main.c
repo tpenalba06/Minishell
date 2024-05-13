@@ -6,17 +6,18 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:50:05 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 18:29:06 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:15:49 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int g_sig_rec;
-
 #include "minishell.h"
+
+int g_sig_rec;
 
 int	main(int argc, char **argv, char **env)
 {
 	t_mini	mini;
+
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.parsing = ft_calloc(1, sizeof(t_parsing));
 	mini.lexer = NULL;

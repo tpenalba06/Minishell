@@ -6,25 +6,25 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:17:13 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 19:45:37 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:00:09 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char srch_index_c(char *str, char c)
+char	srch_index_c(char *str, char c)
 {
-    int i;
-    i = 0;
-    while(str[i])
-    {
-        if(str[i] == c)
-            return(i);
-        i++;
-    }
-    return(0);
-}
+	int	i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
 t_env	*envlast(t_env *lst)
 {
@@ -51,8 +51,7 @@ t_env	*envnew(char *name, char *value)
 	if (!lst)
 		return (NULL);
 	lst->name = name;
-    lst->value = value;
+	lst->value = value;
 	lst->next = NULL;
-	
 	return (lst);
 }

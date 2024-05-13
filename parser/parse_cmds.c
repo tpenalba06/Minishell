@@ -6,87 +6,81 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 20:49:02 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/05 21:29:49 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:53:31 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void redisplay_error(void)
+void	redisplay_error(void)
 {
-			printf("syntax error near token \n");
-			rl_on_new_line();
+	printf("syntax error near token \n");
+	rl_on_new_line();
 }
 
-void parse_uber_command(t_lexer *lexer)
+void	parse_uber_command(t_lexer *lexer)
 {
-    t_lexer *tmp;
-
-    tmp = lexer;
-
-    if (tmp->token == 0 && tmp->cmds == 0)
-        tmp->cmds = COMMAND;
-    if(tmp->token == less_than || tmp->token == more_more || tmp->token == more_than
-        || tmp->token == less_less || tmp->token == pipee)
-        tmp->cmds = METACHAR;
-    if(tmp->token == less_than && tmp->next)
-        tmp->next->cmds = IN_FILE;
-    if(tmp->token == more_than && tmp->next)
-        tmp->next->cmds = OUT_FILE;
-    if(tmp->token == less_less && tmp->next)
-        tmp->next->cmds = HEREDOC;
-    if(tmp->token == more_more && tmp->next)
-        tmp->next->cmds = APPEND;
-    if(tmp->token == 0 && tmp->cmds == 1 && (ft_strcmp(tmp->content, "echo") == 0
-        || ft_strcmp(tmp->content, "pwd") == 0 || ft_strcmp(tmp->content, "unset") == 0
-        || ft_strcmp(tmp->content, "env") == 0 || ft_strcmp(tmp->content, "export") == 0
-        || ft_strcmp(tmp->content, "exit") == 0 || ft_strcmp(tmp->content, "cd") == 0)
-        && (tmp->prev != NULL && tmp->prev->token == pipee))
-        tmp->cmds = BUILTIN;
-
+	if (lexer->token == 0 && lexer->cmds == 0)
+		lexer->cmds = COMMAND;
+	if (lexer->token == less_than || lexer->token == more_more
+		|| lexer->token == more_than
+		|| lexer->token == less_less || lexer->token == pipee)
+		lexer->cmds = METACHAR;
+	if (lexer->token == less_than && lexer->next)
+		lexer->next->cmds = IN_FILE;
+	if (lexer->token == more_than && lexer->next)
+		lexer->next->cmds = OUT_FILE;
+	if (lexer->token == less_less && lexer->next)
+		lexer->next->cmds = HEREDOC;
+	if (lexer->token == more_more && lexer->next)
+		lexer->next->cmds = APPEND;
+	if (lexer->token == 0 && lexer->cmds == 1
+		&& (ft_strcmp(lexer->content, "echo") == 0
+			|| ft_strcmp(lexer->content, "pwd") == 0
+			|| ft_strcmp(lexer->content, "unset") == 0
+			|| ft_strcmp(lexer->content, "env") == 0
+			|| ft_strcmp(lexer->content, "export") == 0
+			|| ft_strcmp(lexer->content, "exit") == 0
+			|| ft_strcmp(lexer->content, "cd") == 0))
+		lexer->cmds = BUILTIN;
 }
 
-void parse_uber_first_command(t_lexer *lexer)
+void	parse_uber_first_command(t_lexer *lexer)
 {
-    t_lexer *tmp;
-
-    tmp = lexer;
-
-    if (tmp->token == 0 && tmp->cmds == 0)
-        tmp->cmds = COMMAND;
-    if(tmp->token == less_than || tmp->token == more_more || tmp->token == more_than
-        || tmp->token == less_less || tmp->token == pipee)
-        tmp->cmds = METACHAR;
-    if(tmp->token == less_than && tmp->next)
-        tmp->next->cmds = IN_FILE;
-    if(tmp->token == more_than && tmp->next)
-        tmp->next->cmds = OUT_FILE;
-    if(tmp->token == less_less && tmp->next)
-        tmp->next->cmds = HEREDOC;
-    if(tmp->token == more_more && tmp->next)
-        tmp->next->cmds = APPEND;
-    if(tmp->token == 0 && tmp->cmds == 1 && (ft_strcmp(tmp->content, "echo") == 0
-        || ft_strcmp(tmp->content, "pwd") == 0 || ft_strcmp(tmp->content, "unset") == 0
-        || ft_strcmp(tmp->content, "env") == 0 || ft_strcmp(tmp->content, "export") == 0
-        || ft_strcmp(tmp->content, "exit") == 0 || ft_strcmp(tmp->content, "cd") == 0))
-        tmp->cmds = BUILTIN;
-
+	if (lexer->token == 0 && lexer->cmds == 0)
+		lexer->cmds = COMMAND;
+	if (lexer->token == less_than || lexer->token == more_more
+		|| lexer->token == more_than
+		|| lexer->token == less_less || lexer->token == pipee)
+		lexer->cmds = METACHAR;
+	if (lexer->token == less_than && lexer->next)
+		lexer->next->cmds = IN_FILE;
+	if (lexer->token == more_than && lexer->next)
+		lexer->next->cmds = OUT_FILE;
+	if (lexer->token == less_less && lexer->next)
+		lexer->next->cmds = HEREDOC;
+	if (lexer->token == more_more && lexer->next)
+		lexer->next->cmds = APPEND;
+	if (lexer->token == 0 && lexer->cmds == 1
+		&& (ft_strcmp(lexer->content, "echo") == 0
+			|| ft_strcmp(lexer->content, "pwd") == 0
+			|| ft_strcmp(lexer->content, "unset") == 0
+			|| ft_strcmp(lexer->content, "env") == 0
+			|| ft_strcmp(lexer->content, "export") == 0
+			|| ft_strcmp(lexer->content, "exit") == 0
+			|| ft_strcmp(lexer->content, "cd") == 0))
+		lexer->cmds = BUILTIN;
 }
 
-void    parse_cmds(t_lexer *lexer)
+void	parse_cmds(t_lexer *lexer)
 {
-    t_lexer *tmp;
+	t_lexer	*tmp;
 
-    tmp = lexer;
-    parse_uber_first_command(tmp);
-    while(tmp)
-    {
-        parse_uber_command(tmp);
-        printf("{ \n string = %s \n", tmp->content);
-        printf("token = %d\n", tmp->token);
-        printf("cmds = %d\n } \n\n\n\n\n", tmp->cmds);
-        tmp = tmp->next;
-    }
+	tmp = lexer;
+	parse_uber_first_command(tmp);
+	while (tmp)
+	{
+		parse_uber_command(tmp);
+		tmp = tmp->next;
+	}
 }
-
-

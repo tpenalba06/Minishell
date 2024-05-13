@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:59:04 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 21:01:29 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 00:15:55 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ char	*good_path(char *str, char **cmd)
 		charfinal = ft_strjoinps(tab, cmd[0]);
 		if (access(charfinal, F_OK) == 0)
 		{
-			free_tab(tabchar);
+			free_char_tab(tabchar);
 			return (charfinal);
 		}
 		else
 			i++;
 		free(charfinal);
 	}
-	free_tab(tabchar);
+	free_char_tab(tabchar);
 	return (0);
 }
 
@@ -75,6 +75,7 @@ char	*find_path(t_mini *mini, char **env, char **cmd)
 	int		i;
 
 	i = 0;
+	(void)mini;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PATH=", 5))

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 17:09:37 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 20:15:58 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:21:21 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	env_add(const char *value, t_env *env)
 		env->value = ft_strdup(value);
 		return (1);
 	}
-	if (!(new = malloc(sizeof(t_env))))
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (-1);
 	new->value = ft_strdup(value);
 	while (env && env->next && env->next->next)

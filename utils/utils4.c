@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:12:07 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/10 18:25:15 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:57:26 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	count_word(const char *str, char c)
 {
 	int	i;
 	int	j;
+
 	i = 0;
 	j = 0;
 	while (str[i])
@@ -31,10 +32,12 @@ int	count_word(const char *str, char c)
 	}
 	return (j);
 }
+
 int	word_len(const char *s, char c, int start)
 {
 	int	i;
 	int	count;
+
 	i = start;
 	count = 0;
 	while (s[i] && s[i] != c)
@@ -44,12 +47,14 @@ int	word_len(const char *s, char c, int start)
 	}
 	return (count);
 }
+
 char	*ft_getword(const char *s, char c, int start)
 {
 	int		i;
 	int		j;
 	int		len;
 	char	*word;
+
 	i = start;
 	j = 0;
 	len = word_len(s, c, start);
@@ -63,11 +68,13 @@ char	*ft_getword(const char *s, char c, int start)
 	word[j] = '\0';
 	return (word);
 }
+
 char	**ft_split(char const *s, char c)
 {
 	char	**r;
 	int		i;
 	int		j;
+
 	i = 0;
 	j = 0;
 	if (!s)

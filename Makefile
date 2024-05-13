@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/13 17:04:16 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/14 00:06:39 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,15 @@ SRC = 	main.c \
 		lexer/fill_list.c \
 		lexer/tokenize.c \
 		parser/parse_cmds.c \
-		parser/builtins.c \
 		parser/get_env.c \
 		parser/checkdollz.c \
 		heredoc/heredoc.c \
+		heredoc/heredoc_child.c\
+		heredoc/files.c\
 		builtins/echo.c \
 		lexer/remove_quotes.c \
 		lexer/lexer_utils.c \
+		lexer/list_utils.c \
 		utils/utils.c \
 		utils/utils2.c \
 		utils/utils3.c\
@@ -34,14 +36,19 @@ SRC = 	main.c \
 		utils/utils5.c\
 		parser/env_utils.c\
 		parser/env_utils2.c\
-		exec/pipe.c\
 		exec/executor.c\
+		exec/exec_it.c\
+		exec/path.c\
+		exec/executor_utils.c\
 		builtins/export.c\
+		builtins/export_utils.c\
 		builtins/unset.c\
 		builtins/pwd.c\
 		builtins/cd.c\
+		builtins/cd_utils.c\
 		builtins/builtins_exec.c\
-		builtins/env.c
+		builtins/env.c\
+		redir/redir.c
 
 OBJ = $(SRC:.c=.o)
 
