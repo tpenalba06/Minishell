@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 14:24:39 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:47:47 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ void	check_syntax(t_lexer *lexer)
 	tmp = lexer;
 }
 
+void	check_env(t_mini  *mini)
+{
+	t_lexer *tmp;
+
+	tmp = mini->lexer;
+	while (tmp)
+	{
+		tmp->content = change_env(tmp->content, mini);
+		tmp = tmp->next;
+	}
+}
+
 int	lexluthor(t_mini *mini, t_parsing *parsing)
 {
 	parsing->tab = split_line(parsing->input, *parsing);
@@ -48,13 +60,8 @@ int	lexluthor(t_mini *mini, t_parsing *parsing)
 		check_syntax(mini->lexer);
 	if (here_doc(mini->lexer) == 130)
 		return (130);
-	mini->lexer->tmp = mini->lexer;
-	//lexertmp = mini->lexer;
-	while (mini->lexer->tmp)
-	{
-		mini->lexer->tmp->content = change_env(mini->lexer->tmp->content, mini);
-		mini->lexer->tmp = mini->lexer->tmp->next;
-	}
+	check_env(mini);
+	
 	return(0);
 }
 

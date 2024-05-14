@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 17:34:01 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:44:33 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,30 @@ void	set_signal_actions(void)
 	act.sa_handler = &handle_signals;
 	sigaction(SIGINT, &act, NULL);
 }
+void printList (t_mini *mini)
+{
+	t_lexer *tmp;
+
+	tmp = mini->lexer;
+	if (tmp && tmp->token == 5)
+		terror(tmp->content, mini->lexer);
+	while (tmp)
+	{
+		if (tmp->next)
+		{
+			if ((tmp->token != 0 && tmp->token != 5 && tmp->next->token != 0))
+			{
+				printf("lol\n");
+				terror(tmp->content, mini->lexer);
+			}
+		}
+		printf("---------------------\n");
+		printf("element : %s\n", tmp->content);
+		printf("token is : %d\n", tmp->token);
+		printf("---------------------\n");
+		tmp = tmp->next;
+	}
+}
 
 void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 {
@@ -67,6 +91,7 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 		if (mini->lexer->error == 1)
 			continue ;
 		parse_cmds(mini->lexer);
+		//printList(mini);
 		sort_env(mini->env);
 		executor(mini);
 		// if (dollarwhybby(mini->lexer) == 1)

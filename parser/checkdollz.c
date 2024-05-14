@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:03:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 17:41:14 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:41:29 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,28 @@ int	one_dollar(char *str)
 	return (1);
 }
 
+char *dollarwhy(char *str)
+{
+	char *position;
+	char *error_code;
+    char *new_str;
+	int len;
+
+	position = strchr(str, '?');
+	error_code = ft_itoa(g_sig_rec);
+	len = ft_strlen(str) + ft_strlen(error_code);
+	new_str = malloc(sizeof(char) * len - 1);
+	if (position != NULL)
+	{
+        strncpy(new_str, str, position - str);
+        new_str[len] = '\0';
+        strcat(new_str, error_code);
+        strcat(new_str, position + 1);
+		return(new_str);
+	}
+	return(NULL);
+}
+
 char	*change_env(char *str, t_mini *mini)
 {
 	char	*name;
@@ -99,11 +121,14 @@ char	*change_env(char *str, t_mini *mini)
 	is_in(&in, str[i]);
 	while (str[i])
 	{
-		if(ft_strcmp("$?", keep_name(&str[i])) == 0)
-		{
-			str = ft_strjoin(str, ft_itoa(g_sig_rec));
-			return(str);
-		}
+
+		
+		 if(str[i] == '$' && str[i + 1] == '?')
+		 {
+			str = dollarwhy(str);
+			i = 0;
+			//printf("%s\n", str);
+		 }
 		if (str[i] == '$' && in != '\'')
 		{
 			name = keep_name(str + i);

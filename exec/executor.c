@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:29:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 17:16:40 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:07:00 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	init_exec(t_mini *mini)
 {
 	mini->cmd_processing.ret.n_cmd = count_pipes (mini) + 1;
 	mini->cmd_processing.ret.remaining = mini->cmd_processing.ret.n_cmd;
-	if (mini->cmd_processing.charenv)
-		free_char_tab(mini->cmd_processing.charenv);
+	//if (mini->cmd_processing.charenv)
+	//	free_char_tab(mini->cmd_processing.charenv);
 	mini->cmd_processing.charenv = re_char_etoile_etoilise_env(mini->env);
 	mini->cmd_processing.ret.fd = -1;
 	mini->cmd_processing.redir.heredoc_no = 0;
