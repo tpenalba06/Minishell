@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 19:56:32 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 20:15:27 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:05:03 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_builtin(t_cmd_processing *cmd, t_env *env, t_mini *mini)
 	else if (ft_strcmp("export", cmd->cmd[0]) == 0)
 		return (export(env, cmd->cmd, mini));
 	else if (ft_strcmp("unset", cmd->cmd[0]) == 0)
-		return (unset(env, cmd->cmd));
+		return (unset(cmd->cmd, mini));
 	else if (ft_strcmp("cd", cmd->cmd[0]) == 0)
 		return (ft_cd(cmd->cmd, env));
 	else if (ft_strcmp("pwd", cmd->cmd[0]) == 0)

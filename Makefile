@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/14 00:06:39 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/14 16:51:53 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC = 	main.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=leak
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 LDFLAGS = -lreadline
 
 .c.o:

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 00:08:33 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:05:26 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	init_data(t_parsing *data);
 void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env);
 
 //lexluthor
-void	lexluthor(t_mini *mini, t_parsing *parsing);
+int	lexluthor(t_mini *mini, t_parsing *parsing);
 void	print_tab(char **tab);
 void	terror(char *str, t_lexer *lexer);
 void	check_syntax(t_lexer *lexer);
@@ -271,7 +271,7 @@ int		env_add(const char *value, t_env *env);
 int		is_in_env(t_env *env, char *args);
 void	*ft_memdel(void *ptr);
 //
-int		unset(t_env *env, char **cmd);
+int		unset(char **cmd, t_mini *mini);
 int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_env(t_env *env);

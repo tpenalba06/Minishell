@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 23:32:38 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:51:41 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,10 @@ int	export(t_env *env, char **cmd, t_mini *mini)
 		print_env_export(env);
 	while (cmd[i])
 	{
-		if (export_name_exist(envtmp, cmd[i]) == 1)
-		{
-			is_in_env++;
-			return (0);
-		}
 		if (export_name_exist(envtmp, cmd[i]) == 0)
-			return (0);
+			is_in_env++;
+		if (export_name_exist(envtmp, cmd[i]) == 1)
+			is_in_env++;
 		if (is_in_env == 0)
 			export_new_var(mini, envtmp, cmd[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 22:22:21 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:18:20 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ int	ft_echo(char **args)
 	}
 	if (n_opt == 0)
 		write(1, "\n", 1);
-	return (1);
+	return (0);
 }

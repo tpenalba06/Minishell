@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:03:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 22:03:29 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:41:14 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ char	*change_env(char *str, t_mini *mini)
 	is_in(&in, str[i]);
 	while (str[i])
 	{
+		if(ft_strcmp("$?", keep_name(&str[i])) == 0)
+		{
+			str = ft_strjoin(str, ft_itoa(g_sig_rec));
+			return(str);
+		}
 		if (str[i] == '$' && in != '\'')
 		{
 			name = keep_name(str + i);
@@ -112,7 +117,8 @@ char	*change_env(char *str, t_mini *mini)
 			str = ft_strjoin(str, end);
 			i = -1;
 		}
-		is_in(&in, str[i]);
+		if (i >= 0)
+			is_in(&in, str[i]);
 		i++;
 	}
 	return (str);

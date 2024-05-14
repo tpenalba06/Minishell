@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 00:26:37 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:39 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,23 @@ void	check_syntax(t_lexer *lexer)
 	tmp = lexer;
 }
 
-void	lexluthor(t_mini *mini, t_parsing *parsing)
+int	lexluthor(t_mini *mini, t_parsing *parsing)
 {
 	parsing->tab = split_line(parsing->input, *parsing);
 	fill_lst(mini, parsing);
 	tokenize(mini);
 	if (mini->lexer)
 		check_syntax(mini->lexer);
-	here_doc(mini->lexer);
+	if (here_doc(mini->lexer) == 130)
+		return (130);
 	mini->lexer->tmp = mini->lexer;
+	//lexertmp = mini->lexer;
 	while (mini->lexer->tmp)
 	{
 		mini->lexer->tmp->content = change_env(mini->lexer->tmp->content, mini);
 		mini->lexer->tmp = mini->lexer->tmp->next;
 	}
+	return(0);
 }
 
 //gerer les pipes mm qd ils sont colles avancer 1 char par 1 char

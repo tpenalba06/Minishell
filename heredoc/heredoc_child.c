@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:40:18 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 23:51:06 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:09:00 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	heredoc_child(int fd, char *eof)
 	{
 		if (g_sig_rec == SIGINT)
 		{
-			printf("My child died because I killed it\n");
 			kill(pid, SIGINT);
 			waitpid(pid, 0, 0);
 			g_sig_rec = 0;

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:29:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 00:39:21 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:16:40 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	petit_executor(t_mini *mini, t_lexer *lex_tmp)
 	mini->cmd_processing.redir.in = -1;
 	mini->cmd_processing.redir.out = -1;
 	mini->cmd_processing.is_builtin = false;
-	if (mini->cmd_processing.cmd)
-		free_char_tab(mini->cmd_processing.cmd);
+	//if (mini->cmd_processing.cmd[0])
+	//	free_char_tab(mini->cmd_processing.cmd);
 	mini->cmd_processing.cmd = parse_into_char(lex_tmp,
 			&(mini->cmd_processing.redir),
 			&(mini->cmd_processing.is_builtin));
@@ -47,9 +47,10 @@ void	executor(t_mini *mini)
 	{
 		i = 0;
 		petit_executor(mini, lex_tmp);
-		if (mini->cmd_processing.cmd && !mini->cmd_processing.is_builtin)
+		if (mini->cmd_processing.cmd[0] && !mini->cmd_processing.is_builtin)
 		{
-			mini->cmd_processing.full_path = find_path(mini, mini->charenv,
+			// printf("%s\n", mini->cmd_processing.cmd);
+			mini-> cmd_processing.full_path = find_path(mini, mini->charenv,
 					mini->cmd_processing.cmd);
 			if (mini->cmd_processing.full_path == NULL)
 			{
@@ -75,6 +76,7 @@ void	executor(t_mini *mini)
 	}
 	printf("%ld\n", wait_father(&(mini->cmd_processing.ret),
 			mini->cmd_processing.ret.n_cmd, ret));
+	g_sig_rec = ret;
 }
 
 // avancer dans t lexer 
