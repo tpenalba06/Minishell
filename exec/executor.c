@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:29:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 19:07:00 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:30:09 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	executor(t_mini *mini)
 	}
 	printf("%ld\n", wait_father(&(mini->cmd_processing.ret),
 			mini->cmd_processing.ret.n_cmd, ret));
-	g_sig_rec = ret;
+	mini->ret = ret;
 }
 
 // avancer dans t lexer 

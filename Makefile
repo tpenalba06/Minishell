@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/14 16:51:53 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/15 15:35:13 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC = 	main.c \
 		builtins/pwd.c\
 		builtins/cd.c\
 		builtins/cd_utils.c\
+		parser/dollarwhy.c\
 		builtins/builtins_exec.c\
 		builtins/env.c\
 		redir/redir.c

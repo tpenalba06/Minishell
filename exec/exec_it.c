@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:36:16 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 17:13:07 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:26:17 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ long	wait_father(t_ret_cmd *ret, unsigned long n_cmd, long err)
 		exit_st = status;
 	if (err)
 		return (err);
-	g_sig_rec = WEXITSTATUS(exit_st);
+	//g_sig_rec = WEXITSTATUS(exit_st);
 	return (WEXITSTATUS(exit_st));
 }

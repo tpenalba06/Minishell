@@ -14,3 +14,45 @@ si reussit, il exit (0)
 sinon, il continue donc faut exit(1)
 
 parent, cree tous les enfants, puis il va tous les attendre
+
+
+char	*change_env(char *str, t_mini *mini)
+{
+	char	*name;
+	char	*value;
+	char	*end;
+	int		i;
+	char	in;
+
+	(norm(), i = 0, in = 0);
+	if (one_dollar(str) == 1)
+		return (str);
+	is_in(&in, str[i]);
+	while (str[i])
+	{
+
+		
+		 if(str[i] == '$' && str[i + 1] == '?')
+		 {
+			str = dollarwhy(str);
+			i = 0;
+		 }
+		if (str[i] == '$' && in != '\'')
+		{
+			mini.dollar->name = keep_name(str + i);
+			value = name_to_value(name, mini->env);
+			str[i] = '\0';
+			i++;
+			while (is_env_char(str[i]))
+				i++;
+			end = str + i;
+			str = ft_strjoin(str, value);
+			str = ft_strjoin(str, end);
+			i = -1;
+		}
+		if (i >= 0)
+			is_in(&in, str[i]);
+		i++;
+	}
+	return (str);
+}
