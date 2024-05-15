@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 19:56:32 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 15:05:03 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:51:54 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ int	exec_builtin(t_cmd_processing *cmd, t_env *env, t_mini *mini)
 		return (ft_cd(cmd->cmd, env));
 	else if (ft_strcmp("pwd", cmd->cmd[0]) == 0)
 		return (ft_pwd());
+	else if (ft_strcmp("exit", cmd->cmd[0]) == 0)
+		mini_exit(cmd->cmd, mini);
 	return (-1);
 }

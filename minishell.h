@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 15:05:45 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:52:24 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef enum e_cmds
 
 typedef struct s_parsing
 {
+	int		check_int;
 	char	*input;
 	char	**tab;
 	int		index;
@@ -245,6 +246,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
 void	free_char_tab(char **tab);
+void	error_newline();
 
 //terminator
 void			executor(t_mini *mini);
@@ -284,7 +286,8 @@ int		unset(char **cmd, t_mini *mini);
 int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_env(t_env *env);
-char	*dollarwhy(char *str);
+char	*dollarwhy(t_mini *mini, char *str);
+void	mini_exit(char **cmd, t_mini *mini);
 
 //bzzzzzzzzz
 void	sig_catch(int sig);

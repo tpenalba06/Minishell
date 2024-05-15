@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:29:42 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 14:30:09 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:27:02 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	init_exec(t_mini *mini)
 {
 	mini->cmd_processing.ret.n_cmd = count_pipes (mini) + 1;
 	mini->cmd_processing.ret.remaining = mini->cmd_processing.ret.n_cmd;
-	//if (mini->cmd_processing.charenv)
-	//	free_char_tab(mini->cmd_processing.charenv);
 	mini->cmd_processing.charenv = re_char_etoile_etoilise_env(mini->env);
 	mini->cmd_processing.ret.fd = -1;
 	mini->cmd_processing.redir.heredoc_no = 0;
@@ -28,8 +26,6 @@ void	petit_executor(t_mini *mini, t_lexer *lex_tmp)
 	mini->cmd_processing.redir.in = -1;
 	mini->cmd_processing.redir.out = -1;
 	mini->cmd_processing.is_builtin = false;
-	//if (mini->cmd_processing.cmd[0])
-	//	free_char_tab(mini->cmd_processing.cmd);
 	mini->cmd_processing.cmd = parse_into_char(lex_tmp,
 			&(mini->cmd_processing.redir),
 			&(mini->cmd_processing.is_builtin));
@@ -49,7 +45,6 @@ void	executor(t_mini *mini)
 		petit_executor(mini, lex_tmp);
 		if (mini->cmd_processing.cmd[0] && !mini->cmd_processing.is_builtin)
 		{
-			// printf("%s\n", mini->cmd_processing.cmd);
 			mini-> cmd_processing.full_path = find_path(mini, mini->charenv,
 					mini->cmd_processing.cmd);
 			if (mini->cmd_processing.full_path == NULL)
@@ -74,8 +69,8 @@ void	executor(t_mini *mini)
 		if (i == 0)
 			lex_tmp = go_next_cmd(lex_tmp, mini);
 	}
-	printf("%ld\n", wait_father(&(mini->cmd_processing.ret),
-			mini->cmd_processing.ret.n_cmd, ret));
+	ret = wait_father(&(mini->cmd_processing.ret),
+			mini->cmd_processing.ret.n_cmd, ret);
 	mini->ret = ret;
 }
 

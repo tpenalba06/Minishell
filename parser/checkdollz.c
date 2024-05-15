@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:03:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 15:38:15 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:27:11 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*change_env2(t_mini *mini, char *str, t_dollar *dollar, char *in)
 	{
 		 if(str[dollar->i] == '$' && str[dollar->i + 1] == '?')
 		 {
-			str = dollarwhy(str);
+			str = dollarwhy(mini, str);
 			dollar->i = 0;
 		 }
 		if (str[dollar->i] == '$' && *in != '\'')
@@ -109,9 +109,8 @@ char	*change_env2(t_mini *mini, char *str, t_dollar *dollar, char *in)
 			str = ft_strjoin(str, dollar->end);
 			dollar->i = -1;
 		}
-		if (dollar->i >= 0)
-			is_in(*(&in), str[dollar->i]);
 		dollar->i++;
+		is_in(*(&in), str[dollar->i]);
 	}
 	return(str);
 }
@@ -127,44 +126,3 @@ char	*change_env(char *str, t_mini *mini)
 	str = change_env2(mini, str, &dollar, &in);
 	return (str);
 }
-
-// char	*change_env(char *str, t_mini *mini)
-// {
-// 	char	*name;
-// 	char	*value;
-// 	char	*end;
-// 	int		i;
-// 	char	in;
-
-// 	(norm(), i = 0, in = 0);
-// 	if (one_dollar(str) == 1)
-// 		return (str);
-// 	is_in(&in, str[i]);
-// 	while (str[i])
-// 	{
-
-		
-// 		 if(str[i] == '$' && str[i + 1] == '?')
-// 		 {
-// 			str = dollarwhy(str);
-// 			i = 0;
-// 		 }
-// 		if (str[i] == '$' && in != '\'')
-// 		{
-// 			name = keep_name(str + i);
-// 			value = name_to_value(name, mini->env);
-// 			str[i] = '\0';
-// 			i++;
-// 			while (is_env_char(str[i]))
-// 				i++;
-// 			end = str + i;
-// 			str = ft_strjoin(str, value);
-// 			str = ft_strjoin(str, end);
-// 			i = -1;
-// 		}
-// 		if (i >= 0)
-// 			is_in(&in, str[i]);
-// 		i++;
-// 	}
-// 	return (str);
-// }

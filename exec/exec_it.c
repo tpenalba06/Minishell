@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:36:16 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 14:26:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:24:33 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	exec_that(t_cmd_processing *cp, t_mini *mini)
 		dup2(cp->redir.out, STDOUT_FILENO);
 	else if (cp->ret.remaining != 1)
 	{
-		// FAIS ATTENTION ICI TU NE DOIS FAIRE CE ELSE QUE SIL RESTE UN CMD APRES DONC COMPTE OU CHECK QUIL Y A UN AUTRE PIPE EN TOUT CAS PARCE QUE SINON CA NE ECHOERA PAS DANS LE STDOUT MAIS DANS UN PIPE QUI NE SERA PAS AFFICHE DANS LE TERMINAL CE QUI NE CORRESPOND PAS A CE QUE LON ATTEND
 		dup2(cp->ret.pipes[1], STDOUT_FILENO);
 	}
 	close(cp->ret.pipes[1]);
@@ -125,6 +124,5 @@ long	wait_father(t_ret_cmd *ret, unsigned long n_cmd, long err)
 		exit_st = status;
 	if (err)
 		return (err);
-	//g_sig_rec = WEXITSTATUS(exit_st);
 	return (WEXITSTATUS(exit_st));
 }

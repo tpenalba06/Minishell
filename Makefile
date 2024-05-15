@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/15 15:35:13 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/15 18:04:15 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC = 	main.c \
 		parser/dollarwhy.c\
 		builtins/builtins_exec.c\
 		builtins/env.c\
+		builtins/exit.c\
 		redir/redir.c
 
 OBJ = $(SRC:.c=.o)

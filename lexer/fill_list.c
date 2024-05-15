@@ -6,11 +6,17 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 00:29:56 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:13:32 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	error_quotes(void)
+{
+	rl_on_new_line();
+	
+}
 
 static void	unlink_here(int n)
 {
@@ -41,7 +47,6 @@ void	del_first_lex(t_mini *mini, t_parsing *parsing)
 			unlink_here(here);
 			here++;
 		}
-		//free(tmp->content);
 		tmp2 = tmp->next;
 		free(tmp);
 		i++;
@@ -58,7 +63,6 @@ void	fill_lst(t_mini *mini, t_parsing *parsing)
 	i = 0;
 	while (parsing->tab[i])
 	{
-		remove_excess_quote(parsing->tab[i]);
 		lstadd_back(mini, lstnew(parsing->tab[i]));
 		lstlast(mini->lexer)->token = indefini;
 		lstlast(mini->lexer)->cmds = undefined;

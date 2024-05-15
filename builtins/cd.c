@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 22:33:23 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:21:13 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static int	go_to_path(int option, t_env *env)
 	{
 		update_oldpwd(env);
 		env_path = get_env_path(env, "HOME", 4);
-		if (!env_path)
-			ft_putendl_fd("minishell : cd: HOME not set", 2);
+		//if (!env_path)
+		//	ft_putendl_fd("minishell : cd: HOME not set", 2);
 		if (!env_path)
 			return (0);
 	}

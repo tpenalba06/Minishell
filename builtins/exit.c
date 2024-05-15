@@ -6,31 +6,48 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:20 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 20:48:17 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:21:07 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	mini_exit(t_mini *mini, char **cmd)
+bool ft_isnum(char *str)
 {
-	// mini->exit = 1;
-	// ft_putstr_fd("exit ", STDERR);
-	// if (cmd[1] && cmd[2])
-	// {
-	// 	mini->ret = 1;
-	// 	ft_putendl_fd("minishell: exit: too many arguments", STDERR);
-	// }
-	// else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
-	// {
-	// 	mini->ret = 255;
-	// 	ft_putstr_fd("minishell: exit: ", STDERR);
-	// 	ft_putstr_fd(cmd[1], STDERR);
-	// 	ft_putendl_fd(": numeric argument required", STDERR);
-	// }
-	// else if (cmd[1])
-	// 	mini->ret = ft_atoi(cmd[1]);
-	// else
-	// 	mini->ret = 0;
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] < '0' || str[i] > '9')
+			return(false);
+		i++;
+	}
+	return(true);
+}
+
+void	mini_exit(char **cmd, t_mini *mini)
+{
+	if(cmd[1] == NULL)
+	{
+		ft_putstr_fd("exit\n1\n", 1);
+		exit(EXIT_FAILURE);
+	}
+	else if(!(ft_isnum(cmd[1])))
+	{
+		printf("exit : %s: numeric argument required\n2\n", cmd[1]);
+		exit(2);
+	}
+	else if (cmd[2] == 	NULL)
+	{
+		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd(cmd[1], 1);
+		ft_putstr_fd("\n", 1);
+		exit(ft_atoi(cmd[1]));
+	}
+	else 
+	{
+		ft_putstr_fd("exit : too many arguments\n", 1);
+		mini->ret = 1;
+	}
 }
