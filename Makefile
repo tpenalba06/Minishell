@@ -6,7 +6,7 @@
 #    By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:08:16 by tpenalba          #+#    #+#              #
-#    Updated: 2024/05/15 18:04:15 by tpenalba         ###   ########.fr        #
+#    Updated: 2024/05/15 20:40:49 by tpenalba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC = 	main.c \
 		exec/executor.c\
 		exec/exec_it.c\
 		exec/path.c\
+		exec/exec_init.c\
 		exec/executor_utils.c\
 		builtins/export.c\
 		builtins/export_utils.c\

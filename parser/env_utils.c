@@ -6,11 +6,22 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:17:13 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 22:00:09 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:52:36 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_env_char(char c)
+{
+	if ((c >= 'A' && c <= 'Z' ) || (c >= '0' && c <= '9') || c == '_'
+		|| (c >= 'a' && c <= 'z'))
+	{
+		return (1);
+	}
+	else
+		return (0);
+}
 
 char	srch_index_c(char *str, char c)
 {

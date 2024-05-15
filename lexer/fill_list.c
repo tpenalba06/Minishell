@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 19:39:51 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 19:13:32 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:55:25 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	error_quotes(void)
 {
 	rl_on_new_line();
-	
 }
 
 static void	unlink_here(int n)

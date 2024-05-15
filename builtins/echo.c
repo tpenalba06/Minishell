@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 17:18:20 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:48:41 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static	int	nb_args(char **args)
 	return (size);
 }
 
-int	n_option(char **args, int i)
+int	n_opt(char **args, int i)
 {
-	int	n_option;
+	int	n_opt;
 	int	j;
 
-	n_option = 0;
+	n_opt = 0;
 	j = 0;
 	if (args[i][0] == '-')
 	{
@@ -39,25 +39,25 @@ int	n_option(char **args, int i)
 				j++;
 		}
 		if (args[i][j] == '\0')
-			n_option = 1;
+			n_opt = 1;
 		else
-			n_option = 0;
+			n_opt = 0;
 	}
-	return (n_option);
+	return (n_opt);
 }
 
 int	ft_echo(char **args)
 {
 	int		i;
-	int		n_opt;
+	int		n_pt;
 
 	i = 1;
-	n_opt = 0;
+	n_pt = 0;
 	if (nb_args(args) > 1)
 	{
 		while (args[i] && args[i][0] == '-')
 		{
-			n_opt = n_option(args, i);
+			n_pt = n_opt(args, i);
 			i++;
 		}
 		while (args[i])
@@ -68,7 +68,7 @@ int	ft_echo(char **args)
 			i++;
 		}
 	}
-	if (n_opt == 0)
+	if (n_pt == 0)
 		write(1, "\n", 1);
 	return (0);
 }

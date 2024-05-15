@@ -6,21 +6,11 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 19:50:46 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:59:47 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int32_t   dollarwhybby(t_lexer *lexer)
-{
-    if (ft_strcmp("$?", lexer->content) == 0)
-    {
-		
-		return(1);
-	}
-	return(0);
-}
 
 void	exit_exit(void)
 {
@@ -47,30 +37,30 @@ void	set_signal_actions(void)
 	act.sa_handler = &handle_signals;
 	sigaction(SIGINT, &act, NULL);
 }
-void printList (t_mini *mini)
-{
-	t_lexer *tmp;
+// void printList (t_mini *mini)
+// {
+// 	t_lexer *tmp;
 
-	tmp = mini->lexer;
-	if (tmp && tmp->token == 5)
-		terror(tmp->content, mini->lexer);
-	while (tmp)
-	{
-		if (tmp->next)
-		{
-			if ((tmp->token != 0 && tmp->token != 5 && tmp->next->token != 0))
-			{
-				printf("lol\n");
-				terror(tmp->content, mini->lexer);
-			}
-		}
-		printf("---------------------\n");
-		printf("element : %s\n", tmp->content);
-		printf("token is : %d\n", tmp->token);
-		printf("---------------------\n");
-		tmp = tmp->next;
-	}
-}
+// 	tmp = mini->lexer;
+// 	if (tmp && tmp->token == 5)
+// 		terror(tmp->content, mini->lexer);
+// 	while (tmp)
+// 	{
+// 		if (tmp->next)
+// 		{
+// 			if ((tmp->token != 0 && tmp->token != 5 && tmp->next->token != 0))
+// 			{
+// 				printf("lol\n");
+// 				terror(tmp->content, mini->lexer);
+// 			}
+// 		}
+// 		printf("---------------------\n");
+// 		printf("element : %s\n", tmp->content);
+// 		printf("token is : %d\n", tmp->token);
+// 		printf("---------------------\n");
+// 		tmp = tmp->next;
+// 	}
+// }
 
 void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:21:32 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 14:01:34 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:42:14 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_env(t_env *env)
 			ft_putstr(tmp->value);
 			write(STDOUT_FILENO, "\n", 1);
 		}
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return (0);
 }

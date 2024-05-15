@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 19:18:57 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:59:12 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,15 @@ void	check_syntax(t_lexer *lexer)
 	tmp = lexer;
 }
 
-void	check_env(t_mini  *mini)
+void	check_env(t_mini *mini)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = mini->lexer;
 	while (tmp)
 	{
 		tmp->content = change_env(tmp->content, mini);
 		remove_excess_quote(tmp->content);
-
 		tmp = tmp->next;
 	}
 }
@@ -56,8 +55,8 @@ void	check_env(t_mini  *mini)
 int	lexluthor(t_mini *mini, t_parsing *parsing)
 {
 	parsing->tab = split_line(parsing->input, *parsing);
-	if(parsing->tab == NULL)
-		return(ft_putstr_fd("invalid syntax, bye bye\n", 2), 130);
+	if (parsing->tab == NULL)
+		return (ft_putstr_fd("invalid syntax, bye bye\n", 2), 130);
 	fill_lst(mini, parsing);
 	tokenize(mini);
 	if (mini->lexer)
@@ -65,8 +64,7 @@ int	lexluthor(t_mini *mini, t_parsing *parsing)
 	if (here_doc(mini->lexer) == 130)
 		return (130);
 	check_env(mini);
-	
-	return(0);
+	return (0);
 }
 
 //gerer les pipes mm qd ils sont colles avancer 1 char par 1 char

@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:22:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 18:21:13 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:44:17 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*get_env_path(t_env *env, const char *var, size_t len)
 	return (NULL);
 }
 
-static int	update_oldpwd(t_env *env)
+static int	updt_oldpath(t_env *env)
 {
 	char	cwd[PATH_MAX];
 	char	*oldpwd;
@@ -70,7 +70,7 @@ static int	update_oldpwd(t_env *env)
 	return (1);
 }
 
-static int	go_to_path(int option, t_env *env)
+static int	get_le_path(int option, t_env *env)
 {
 	int		ret;
 	char	*env_path;
@@ -78,10 +78,8 @@ static int	go_to_path(int option, t_env *env)
 	env_path = NULL;
 	if (option == 0)
 	{
-		update_oldpwd(env);
+		updt_oldpath(env);
 		env_path = get_env_path(env, "HOME", 4);
-		//if (!env_path)
-		//	ft_putendl_fd("minishell : cd: HOME not set", 2);
 		if (!env_path)
 			return (0);
 	}
@@ -92,7 +90,7 @@ static int	go_to_path(int option, t_env *env)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", 2);
 		if (!env_path)
 			return (0);
-		update_oldpwd(env);
+		updt_oldpath(env);
 	}
 	ret = chdir(env_path);
 	ft_memdel(env_path);
@@ -104,12 +102,12 @@ int	ft_cd(char **args, t_env *env)
 	int		cd_ret;
 
 	if (!args[1])
-		return (go_to_path(0, env));
+		return (get_le_path(0, env));
 	if (ft_strcmp(args[1], "-") == 0)
-		cd_ret = go_to_path(1, env);
+		cd_ret = get_le_path(1, env);
 	else
 	{
-		update_oldpwd(env);
+		updt_oldpath(env);
 		cd_ret = chdir(args[1]);
 		if (cd_ret < 0)
 			cd_ret *= -1;

@@ -6,13 +6,13 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:50:05 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/13 22:15:49 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:57:23 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_sig_rec;
+int	g_sig_rec;
 
 int	main(int argc, char **argv, char **env)
 {

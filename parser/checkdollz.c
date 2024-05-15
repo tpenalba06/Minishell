@@ -6,22 +6,11 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:03:23 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 18:27:11 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:52:23 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	is_env_char(char c)
-{
-	if ((c >= 'A' && c <= 'Z' ) || (c >= '0' && c <= '9') || c == '_'
-		|| (c >= 'a' && c <= 'z'))
-	{
-		return (1);
-	}
-	else
-		return (0);
-}
 
 char	*keep_name(char *str)
 {
@@ -85,17 +74,16 @@ int	one_dollar(char *str)
 	return (1);
 }
 
-
 char	*change_env2(t_mini *mini, char *str, t_dollar *dollar, char *in)
 {
 	is_in((*&in), str[dollar->i]);
 	while (str[dollar->i])
 	{
-		 if(str[dollar->i] == '$' && str[dollar->i + 1] == '?')
-		 {
+		if (str[dollar->i] == '$' && str[dollar->i + 1] == '?')
+		{
 			str = dollarwhy(mini, str);
 			dollar->i = 0;
-		 }
+		}
 		if (str[dollar->i] == '$' && *in != '\'')
 		{
 			dollar->name = keep_name(str + dollar->i);
@@ -112,13 +100,13 @@ char	*change_env2(t_mini *mini, char *str, t_dollar *dollar, char *in)
 		dollar->i++;
 		is_in(*(&in), str[dollar->i]);
 	}
-	return(str);
+	return (str);
 }
-	
+
 char	*change_env(char *str, t_mini *mini)
 {
-	char in;
-	t_dollar dollar;
+	char		in;
+	t_dollar	dollar;
 
 	(norm(), dollar.i = 0, in = 0);
 	if (one_dollar(str) == 1)
