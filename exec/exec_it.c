@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:36:16 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 18:24:33 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:30:29 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	exec_that(t_cmd_processing *cp, t_mini *mini)
 	{
 		dup2(cp->ret.pipes[1], STDOUT_FILENO);
 	}
-	close(cp->ret.pipes[1]);
+	close(cp->ret.pipes[1]);	
 	if (cp->ret.fd != -1)
 		close(cp->ret.fd);
 	if (cp->is_builtin)

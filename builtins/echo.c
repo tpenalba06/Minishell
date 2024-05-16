@@ -6,69 +6,55 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:19:46 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 21:48:41 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/15 22:43:37 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static	int	nb_args(char **args)
+int	condition_n(char *str)
 {
-	int		size;
-
-	size = 0;
-	while (args[size])
-		size++;
-	return (size);
-}
-
-int	n_opt(char **args, int i)
-{
-	int	n_opt;
-	int	j;
-
-	n_opt = 0;
-	j = 0;
-	if (args[i][0] == '-')
-	{
-		while (args[i][j] == '-' && args[i][j])
-			j ++;
-		if (args[i][j] == 'n')
-		{
-			while (args[i][j] == 'n' && args[i][j])
-				j++;
-		}
-		if (args[i][j] == '\0')
-			n_opt = 1;
-		else
-			n_opt = 0;
-	}
-	return (n_opt);
-}
-
-int	ft_echo(char **args)
-{
-	int		i;
-	int		n_pt;
+	int	i;
 
 	i = 1;
-	n_pt = 0;
-	if (nb_args(args) > 1)
+	if (str[0] != '-')
+		return (1);
+	if (str[0] == '-' && str[1] != 'n')
+		return (1);
+	while (str[i])
 	{
-		while (args[i] && args[i][0] == '-')
-		{
-			n_pt = n_opt(args, i);
-			i++;
-		}
-		while (args[i])
-		{
-			ft_putstr_fd(args[i], 1);
-			if (args[i + 1] && args[i][0] != '\0')
-				write(1, " ", 1);
-			i++;
-		}
+		if (str[i] != 'n')
+			return (1);
+		i++;
 	}
-	if (n_pt == 0)
+	return (0);
+}
+
+int	ft_echo(char **tab)
+{
+	int		option;
+	int		i;
+
+	option = 0;
+	i = 1;
+	if (tab[i] == NULL)
+	{
 		write(1, "\n", 1);
+		return (0);
+	}
+	while (tab[i] && condition_n(tab[i]) == 0)
+	{
+		i++;
+		option = 1;
+	}
+	while (tab[i])
+	{
+		write(1, tab[i], ft_strlen(tab[i]));
+		if (tab[i + 1] != NULL)
+			write(1, " ", 1);
+		i++;
+	}
+	if (option == 0)
+		write(1, "\n", 2);
 	return (0);
 }

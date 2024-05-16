@@ -1,154 +1,154 @@
-n_cmd -> nb de pipe + 1 (echo : 1; echo | cat : 2)
+// n_cmd -> nb de pipe + 1 (echo : 1; echo | cat : 2)
 
-Si c'est builtin, on le marque comme builtin
-Sinon :
-PATH, si pas trouve 127, si trouve mais pas exec 126
-access(F_OK) 127 -> command not found
-access(X_OK) 126 -> permission denied
+// Si c'est builtin, on le marque comme builtin
+// Sinon :
+// PATH, si pas trouve 127, si trouve mais pas exec 126
+// access(F_OK) 127 -> command not found
+// access(X_OK) 126 -> permission denied
 
-On compte le nombre d'arguments (echo bonjour salut : 3)
-{"echo", "bonjour", "salut", NULL}
-{"/bin/cat", "bonjour", NULL}
+// On compte le nombre d'arguments (echo bonjour salut : 3)
+// {"echo", "bonjour", "salut", NULL}
+// {"/bin/cat", "bonjour", NULL}
 
-SI execve :
-t_env -> char **
-t_mini {
-	t_env 	*env;
-	char	**c_env;
-	bool	env_changed;
-}
+// SI execve :
+// t_env -> char **
+// t_mini {
+// 	t_env 	*env;
+// 	char	**c_env;
+// 	bool	env_changed;
+// }
 
-t_cmd_processing {
-	int	pipe[2];
-	int	fd;
-	bool	is_builtin;
-	char	*full_path;
-	char	**full_cmd;
-}
+// t_cmd_processing {
+// 	int	pipe[2];
+// 	int	fd;
+// 	bool	is_builtin;
+// 	char	*full_path;
+// 	char	**full_cmd;
+// }
 
-t_redir {
-	int in;
-	int out;
-}
+// t_redir {
+// 	int in;
+// 	int out;
+// }
 
-full cmd doit prendre les commandes donc chaque tableau 
-est une commande on saut les pipes et les redir 
-unsigned long n_cmd = count_pipes() + 1;
+// full cmd doit prendre les commandes donc chaque tableau 
+// est une commande on saut les pipes et les redir 
+// unsigned long n_cmd = count_pipes() + 1;
 
-while (cmd != NULL) {
-	redir.in = -1;
-	redir.out = -1;
-	if (n_cmd > 1) { pipe(pipe); }
-	full_cmd = parse_into_char(); 
-	perform_redir();
-	is_builtin = is_builtin(premier arg)
-	if (!is_builtin) {
-		full_path = search_cmd(); = rechercher dans le path 
-	}
-	if (env_changed ( donc modif dans export unset on met un booleen)) {
-		c_env = re_char_etoile_etoilise_env();
-		env_changed = false;
-	}
-	exec_machin()
-	cmd = go_next_cmd()
-}
-father_waiting_for_all_children()
+// while (cmd != NULL) {
+// 	redir.in = -1;
+// 	redir.out = -1;
+// 	if (n_cmd > 1) { pipe(pipe); }
+// 	full_cmd = parse_into_char(); 
+// 	perform_redir();
+// 	is_builtin = is_builtin(premier arg)
+// 	if (!is_builtin) {
+// 		full_path = search_cmd(); = rechercher dans le path 
+// 	}
+// 	if (env_changed ( donc modif dans export unset on met un booleen)) {
+// 		c_env = re_char_etoile_etoilise_env();
+// 		env_changed = false;
+// 	}
+// 	exec_machin()
+// 	cmd = go_next_cmd()
+// }
+// father_waiting_for_all_children()
 
 
-exec() {
+// exec() {
 	
-}
+// }
 
-cat -> bonjour -> | -> echo -> salut -> NULL
-{cat, bonjour, NULL}
-/bin/cat
-
-
-export : si var a change, ou var creee
-unset : si var supprimee
-env_changed = true;
+// cat -> bonjour -> | -> echo -> salut -> NULL
+// {cat, bonjour, NULL}
+// /bin/cat
 
 
-
-redir.in = -1;
-redir.out = -1;
-
-echo bonjour >a >b
-if (redir.out != -1) { close(redir.out); }
-redir.out = open(a, WRITE);
-redir.in = open(a, READ);
-
->a >b
-out = open(a)
-close(out)
-out = open(b)
-
-while (cmd && cmd->content != "|") {
-	if (cmd->purpose == COMMAND) { on le rajoute a la liste }
-	else if (cmd->purpose == REDIR) {
-		if (cmd->purpose == INFILE || HEREDOC) {
-			if (redir.in == -1) { close(redir.in); }
-			redir.in = open()
-		} else if (OUT APPEND) { ... }
-	}
-}
-
-
-exec () {
-child :
-	if (redir.in != -1) {
-		dup2(redir.in, STDIN_FILENO);
-	} else if (fd != -1) {
-		dup2(fd, STDIN_FILENO)
-	} else {
-		dup2(ret.pipes[0], STDIN_FILENO);
-	}
-	if (redir.out != -1) {
-		... STDOUT
-	} else if (!derniere commande) {
-		dup2(ret.pipes[1], STDOUT_FILENO);
-	}
-	if (is builtin) {
-		exec_builtin()
-	} else {
-		execve(cmd[0], cmd, c_env);
-	}
-}
-
-// cmd = {/bin/cat, bonjour, NULL}
-
-3 FDS :
-echo bonjour | echo salut
-CHILD : echo bonjour : bonjour -> pipe[1]
-PARENT : fd = dup(pipe[1])
-
-CHILD : fd -> echo salut : salut -> stdout
-
-
-PARENT :
-fork() pour creer l'enfant
-close(pipes)
-fd = dup(pipes[0])
-
-
-a chaque fois, pid = fork()
+// export : si var a change, ou var creee
+// unset : si var supprimee
+// env_changed = true;
 
 
 
-POUR CHERCHER PATH :
-Si pas trouve, 127, on garde 127 en memoire
-Pareil pour permission denied avec 126
-access(F_OK) si non 127
-access(X_OK) si non 126
+// redir.in = -1;
+// redir.out = -1;
+
+// echo bonjour >a >b
+// if (redir.out != -1) { close(redir.out); }
+// redir.out = open(a, WRITE);
+// redir.in = open(a, READ);
+
+// >a >b
+// out = open(a)
+// close(out)
+// out = open(b)
+
+// while (cmd && cmd->content != "|") {
+// 	if (cmd->purpose == COMMAND) { on le rajoute a la liste }
+// 	else if (cmd->purpose == REDIR) {
+// 		if (cmd->purpose == INFILE || HEREDOC) {
+// 			if (redir.in == -1) { close(redir.in); }
+// 			redir.in = open()
+// 		} else if (OUT APPEND) { ... }
+// 	}
+// }
+
+
+// exec () {
+// child :
+// 	if (redir.in != -1) {
+// 		dup2(redir.in, STDIN_FILENO);
+// 	} else if (fd != -1) {
+// 		dup2(fd, STDIN_FILENO)
+// 	} else {
+// 		dup2(ret.pipes[0], STDIN_FILENO);
+// 	}
+// 	if (redir.out != -1) {
+// 		... STDOUT
+// 	} else if (!derniere commande) {
+// 		dup2(ret.pipes[1], STDOUT_FILENO);
+// 	}
+// 	if (is builtin) {
+// 		exec_builtin()
+// 	} else {
+// 		execve(cmd[0], cmd, c_env);
+// 	}
+// }
+
+// // cmd = {/bin/cat, bonjour, NULL}
+
+// 3 FDS :
+// echo bonjour | echo salut
+// CHILD : echo bonjour : bonjour -> pipe[1]
+// PARENT : fd = dup(pipe[1])
+
+// CHILD : fd -> echo salut : salut -> stdout
+
+
+// PARENT :
+// fork() pour creer l'enfant
+// close(pipes)
+// fd = dup(pipes[0])
+
+
+// a chaque fois, pid = fork()
 
 
 
-wait_father () {
-int status;
-while (cmd) {
-	if (waitpid(-1, &status, 0) == pid_du_dernier_enfant)
-		err_status = status;
-}
-if (already_been_err_for_last_child) { return ... }
-return (WEXITSTATUS(err_status));
-}
+// POUR CHERCHER PATH :
+// Si pas trouve, 127, on garde 127 en memoire
+// Pareil pour permission denied avec 126
+// access(F_OK) si non 127
+// access(X_OK) si non 126
+
+
+
+// wait_father () {
+// int status;
+// while (cmd) {
+// 	if (waitpid(-1, &status, 0) == pid_du_dernier_enfant)
+// 		err_status = status;
+// }
+// if (already_been_err_for_last_child) { return ... }
+// return (WEXITSTATUS(err_status));
+// }
