@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:25:15 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 21:59:47 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:38:51 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,18 @@ void	ft_prompt(t_mini *mini, t_parsing *parsing, char **env)
 		add_history(parsing->input);
 		if (parsing->input == NULL)
 			exit_exit();
-		if (lexluthor(mini, parsing) == 130)
-			continue ;
-		if (mini->lexer == NULL)
-			continue ;
-		if (mini->lexer->error == 1)
-			continue ;
-		parse_cmds(mini->lexer);
-		sort_env(mini->env);
-		executor(mini);
+		if (lexluthor(mini, parsing) != 130)
+		{
+			if (mini->lexer != NULL)
+			{
+				if (mini->lexer->error != 1)
+				{
+					parse_cmds(mini->lexer);
+					sort_env(mini->env);
+					executor(mini);
+				}
+			}
+		}
 		del_first_lex(mini, parsing);
 	}
 }

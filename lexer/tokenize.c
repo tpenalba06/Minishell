@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:13:33 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/14 00:26:23 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:20:30 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,16 @@ void	tokenize(t_mini *mini)
 		if (!mini->lexer->content)
 			mini->lexer = mini->lexer->next;
 		else if (mini->lexer->content[0] == '>'
-			&& mini->lexer->content[1] == '>'
-			&& mini->lexer->content[3] == '\0')
+			&& mini->lexer->content[1] != '>')
+			mini->lexer->token = more_than;
+		else if (mini->lexer->content[0] == '>'
+			&& mini->lexer->content[1] == '>')
 			mini->lexer->token = more_more;
 		else if (mini->lexer->content[0] == '<'
 			&& mini->lexer->content[1] == '<')
 			mini->lexer->token = less_less;
 		else if (mini->lexer->content[0] == '<')
 			mini->lexer->token = less_than;
-		else if (mini->lexer->content[0] == '>')
-			mini->lexer->token = more_than;
 		else if (mini->lexer->content[0] == '|')
 			mini->lexer->token = pipee;
 		mini->lexer = mini->lexer->next;

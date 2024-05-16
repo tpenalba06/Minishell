@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:10:10 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 22:08:55 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:34:15 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ int				create_heredoc(int index, t_lexer *lexer);
 void			write_heredoc(int fd, char *eof);
 
 //bulle tine
-int				exec_builtin(t_cmd_processing *cmd, t_env *env, t_mini *mini);
+int				exec_builtin(t_cmd_processing *cmd, t_env *env, t_mini *mini, bool one);
 //
 int				export(t_env *env, char **cmd, t_mini *mini);
 int				there_is_equal(char *str);

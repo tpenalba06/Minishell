@@ -6,7 +6,7 @@
 /*   By: tpenalba <tpenalba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:15:34 by tpenalba          #+#    #+#             */
-/*   Updated: 2024/05/15 21:59:12 by tpenalba         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:38:32 by tpenalba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	terror(char *str, t_lexer *lexer)
 {
 	lexer->error = 1;
-	printf("LA\n");
 	printf("syntax error near unexpected token `%s' \n", str);
 	rl_on_new_line();
 }
@@ -24,10 +23,12 @@ void	check_syntax(t_lexer *lexer)
 {
 	t_lexer	*tmp;
 
-	lexer->error = 0;
 	tmp = lexer;
 	if (tmp == NULL)
 		return ;
+	lexer->error = 0;
+	if (tmp->token == pipee)
+		return (terror(tmp->content, lexer));
 	while (tmp)
 	{
 		if (tmp->token != 0 && tmp->next == NULL)
